@@ -1,0 +1,9 @@
+name: DeathCounter
+version: ${project.version}
+main: me.roopekoo.deathcounter.DeathCounter
+api-version: 1.16
+authors: [ Roopekoo ]
+description: Calculates players' deaths and death rate per time unit
+commands:
+  getdeaths:
+    description: 'Get deaths for a player'
