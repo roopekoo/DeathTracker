@@ -14,30 +14,46 @@ public class GetDeaths implements CommandExecutor {
             if (args.length > 0) {
                 String name = args[0];
                 OfflinePlayer pl = Bukkit.getOfflinePlayer(name);
+                DeathData deathData = DeathCounter.getPlugin().get_config();
                 if(args.length == 2)
                 {
                     if(args[1].equals("time"))
                     {
-                        double deaths = DeathCounter.getPlugin().get_config().getDeathsFor(pl.getUniqueId());
-                        double playtime = DeathCounter.getPlugin().get_config().getPlayTimeFor(pl.getUniqueId());
+                        double deaths = deathData.getDeathsFor(pl.getUniqueId());
+                        double playtime = deathData.getPlayTimeFor(pl.getUniqueId());
                         double deathTime = deaths/playtime;
+                        double timeDeath = playtime/deaths;
+                        if(playtime == 0)
+                        {
+                            deathTime = 0;
+                        }
+                        if(deaths == 0)
+                        {
+                            timeDeath = 0;
+                        }
                         String deathPerTime = deathPerTime(deathTime);
-                        String timePerDeath = timePerDeath(1/deathTime);
+                        String timePerDeath = timePerDeath(timeDeath);
                         String s = "Deathtime for " + name + ": " + deathPerTime + " or " + timePerDeath;
                         sender.sendMessage(s);
                     }
-                }
-                else
-                {
-                    if (DeathCounter.getPlugin().get_config().hasPlayer(pl.getUniqueId().toString())) {
-                        String s = "Deaths for " + name + ": " + DeathCounter.getPlugin().get_config().getDeathsFor(pl.getUniqueId());
-                        sender.sendMessage(s);
-                    } else {
-                        sender.sendMessage("Unknown player!");
+                    else if(args[1].equals("deaths"))
+                    {
+                        if (deathData.hasPlayer(pl.getUniqueId())) {
+                            String s = "Deaths for " + name + ": " + deathData.getDeathsFor(pl.getUniqueId());
+                            sender.sendMessage(s);
+                        } else {
+                            sender.sendMessage("That player doesn't exist!");
+                        }
                     }
                 }
+                if (deathData.hasPlayer(pl.getUniqueId())) {
+                    String s = "Deaths for " + name + ": " + deathData.getDeathsFor(pl.getUniqueId());
+                    sender.sendMessage(s);
+                } else {
+                    sender.sendMessage("That player doesn't exist!");
+                }
             } else {
-                sender.sendMessage("Please supply a player!");
+                sender.sendMessage("Please supply a player name!");
             }
         } else {
             sender.sendMessage("You don't have permission to do that!");
