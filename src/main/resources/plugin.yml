@@ -7,3 +7,6 @@ description: Calculates players' deaths and death rate per time unit
 commands:
   getdeaths:
     description: 'Get deaths for a player'
+    usage: /<command> [player] [time|deaths]
+  deathstats:
+    description: 'Get statistics of the top 10 most and least mortal player'
