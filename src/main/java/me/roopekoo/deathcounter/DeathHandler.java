@@ -12,7 +12,7 @@ public class DeathHandler implements Listener {
     public void on(PlayerDeathEvent e)
     {
         Player player = e.getEntity();
-        DeathCounter.getPlugin().get_config().add(player);
+        DeathCounter.getPlugin().get_file().add(player);
     }
 
     @EventHandler
@@ -22,7 +22,7 @@ public class DeathHandler implements Listener {
         if(p.hasPlayedBefore())
         {
             Player player = e.getPlayer();
-            DeathCounter.getPlugin().get_config().add(player);
+            DeathCounter.getPlugin().get_file().add(player);
         }
     }
 }
