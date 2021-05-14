@@ -8,10 +8,8 @@ public class DeathStats implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender.hasPermission("deathcounter.getstats")) {
-
-        }
-        else
-        {
+            //TODO: Do something here
+        } else {
             sender.sendMessage("You don't have permission to do that!");
         }
         return true;
