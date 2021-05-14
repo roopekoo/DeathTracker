@@ -10,16 +10,17 @@ public class DeathCounter extends JavaPlugin {
     public static DeathCounter getPlugin() {
         return plugin;
     }
-    private final DeathData cfg = new DeathData();
+    private final DeathDataFile dataFile = new DeathDataFile();
     @Override
     public void onEnable() {
         plugin = this;
         Objects.requireNonNull(this.getCommand("getdeaths")).setExecutor(new GetDeaths());
         Objects.requireNonNull(this.getCommand("getdeaths")).setTabCompleter(new TabCompletion());
+        Objects.requireNonNull(this.getCommand("deathstats")).setExecutor(new DeathStats());
         Bukkit.getPluginManager().registerEvents(new DeathHandler(), this);
-        DeathCounter.getPlugin().get_config().updateConfig();
+        DeathCounter.getPlugin().get_file().updateConfig();
     }
-    public DeathData get_config() {
-        return cfg;
+    public DeathDataFile get_file() {
+        return dataFile;
     }
 }
