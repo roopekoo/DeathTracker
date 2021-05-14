@@ -10,17 +10,23 @@ public class DeathCounter extends JavaPlugin {
     public static DeathCounter getPlugin() {
         return plugin;
     }
-    private final DeathDataFile dataFile = new DeathDataFile();
+    private final DeathData dataFile = new DeathData();
+
     @Override
     public void onEnable() {
         plugin = this;
-        Objects.requireNonNull(this.getCommand("getdeaths")).setExecutor(new GetDeaths());
-        Objects.requireNonNull(this.getCommand("getdeaths")).setTabCompleter(new TabCompletion());
-        Objects.requireNonNull(this.getCommand("deathstats")).setExecutor(new DeathStats());
-        Bukkit.getPluginManager().registerEvents(new DeathHandler(), this);
-        DeathCounter.getPlugin().get_file().updateConfig();
+        Objects.requireNonNull(plugin.getCommand("getdeaths")).setExecutor(new GetDeaths());
+        Objects.requireNonNull(plugin.getCommand("getdeaths")).setTabCompleter(new TabCompletion());
+        Objects.requireNonNull(plugin.getCommand("deathstats")).setExecutor(new DeathStats());
+        Bukkit.getPluginManager().registerEvents(new DeathHandler(), plugin);
+        DeathCounter.getPlugin().get_file().initializePlayerData();
     }
-    public DeathDataFile get_file() {
+
+    @Override
+    public void onDisable() {
+        DeathCounter.getPlugin().get_file().writeAllToDeathData();
+    }
+    public DeathData get_file() {
         return dataFile;
     }
 }
