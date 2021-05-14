@@ -14,7 +14,7 @@ public class GetDeaths implements CommandExecutor {
             if (args.length > 0) {
                 String name = args[0];
                 OfflinePlayer pl = Bukkit.getOfflinePlayer(name);
-                DeathData deathData = DeathCounter.getPlugin().get_config();
+                DeathDataFile deathData = DeathCounter.getPlugin().get_file();
                 if(args.length == 2)
                 {
                     if(args[1].equals("time"))
@@ -46,7 +46,7 @@ public class GetDeaths implements CommandExecutor {
                         }
                     }
                 }
-                if (deathData.hasPlayer(pl.getUniqueId())) {
+                else if (deathData.hasPlayer(pl.getUniqueId())) {
                     String s = "Deaths for " + name + ": " + deathData.getDeathsFor(pl.getUniqueId());
                     sender.sendMessage(s);
                 } else {
