@@ -1,3 +1,4 @@
+
 package me.roopekoo.deathcounter;
 
 import org.bukkit.Bukkit;
@@ -12,14 +13,14 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
-public class DeathData {
+public class DeathDataFile {
 
     private static final String BASEDIR = "plugins/DeathTracker";
     private static final String DEATHDATAPATH = "/deathData.yml";
     private final YamlConfiguration deathData;
     private final File ff = new File(BASEDIR + DEATHDATAPATH);
 
-    public DeathData() {
+    public DeathDataFile() {
         File f = new File(BASEDIR);
         if (!f.exists()) {
             f.mkdir();
