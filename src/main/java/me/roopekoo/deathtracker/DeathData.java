@@ -121,6 +121,7 @@ public class DeathData
 				//Deaths = 0
 				deathData.set("players."+uuid+".deaths", deaths);
 			}
+			resetTime = getResetTimeYML(uuid);
 			deaths = getDeathsYML(uuid);
 			deathData.set("players."+uuid+".playtimeTicks",
 			              playtime-resetTime);
