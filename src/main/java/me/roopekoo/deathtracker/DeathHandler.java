@@ -1,4 +1,4 @@
-package me.roopekoo.deathcounter;
+package me.roopekoo.deathtracker;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,14 +14,14 @@ public class DeathHandler implements Listener
 	public void on(PlayerDeathEvent e)
 	{
 		Player player = e.getEntity();
-		DeathCounter.getPlugin().get_file().addDeath(player);
+		DeathTracker.getPlugin().get_file().addDeath(player);
 	}
 
 	@EventHandler
 	public void on(PlayerJoinEvent e)
 	{
 		Player p = e.getPlayer();
-		DeathData d = DeathCounter.getPlugin().get_file();
+		DeathData d = DeathTracker.getPlugin().get_file();
 		if(!p.hasPlayedBefore())
 		{
 			d.addNewPlayer(p);
@@ -36,6 +36,6 @@ public class DeathHandler implements Listener
 	public void on(PlayerQuitEvent e)
 	{
 		Player p = e.getPlayer();
-		DeathCounter.getPlugin().get_file().updateTime(p);
+		DeathTracker.getPlugin().get_file().updateTime(p);
 	}
 }
