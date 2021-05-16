@@ -89,9 +89,9 @@ public class DeathData
 		return playerMap.get(player.toString()).deaths;
 	}
 
-	public int getPlayTime(UUID player)
+	public int getResetTime(UUID player)
 	{
-		return playerMap.get(player.toString()).playTimeTicks;
+		return playerMap.get(player.toString()).resetTime;
 	}
 
 	public int getResetTimeYML(UUID player)
