@@ -14,11 +14,10 @@ import java.util.concurrent.ForkJoinPool;
 
 public class DeathData
 {
-
 	private static final String BASEDIR = "plugins/DeathTracker";
 	private static final String DEATHDATAPATH = "/deathData.yml";
 	private final YamlConfiguration deathData;
-	private final File ff = new File(BASEDIR + DEATHDATAPATH);
+	private final File ff = new File(BASEDIR+DEATHDATAPATH);
 	private final HashMap<String, User> playerMap = new HashMap<>();
 
 	public DeathData()
@@ -58,7 +57,7 @@ public class DeathData
 		int resetTime = user.resetTime;
 
 		user.deaths++;
-		user.playTimeTicks = playTime - resetTime;
+		user.playTimeTicks = playTime-resetTime;
 	}
 
 	public void updateTime(Player player)
@@ -68,18 +67,19 @@ public class DeathData
 		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		int resetTime = user.resetTime;
 
-		user.playTimeTicks = playTime - resetTime;
+		user.playTimeTicks = playTime-resetTime;
 	}
 
 	public boolean noPlayerInYML(UUID uuid)
 	{
-		ConfigurationSection sec = deathData.getConfigurationSection("players");
+		ConfigurationSection sec = deathData.getConfigurationSection(
+				"players");
 		return sec == null || !sec.contains(uuid.toString());
 	}
 
 	public int getDeathsYML(UUID player)
 	{
-		return deathData.getInt("players." + player + ".deaths");
+		return deathData.getInt("players."+player+".deaths");
 	}
 
 	public int getDeaths(UUID player)
@@ -94,7 +94,7 @@ public class DeathData
 
 	public int getResetTimeYML(UUID player)
 	{
-		return deathData.getInt("players." + player + ".resetTime");
+		return deathData.getInt("players."+player+".resetTime");
 	}
 
 	//Adds all missing players to the deathData.yml file
@@ -115,16 +115,16 @@ public class DeathData
 			if(noPlayerInYML(uuid))
 			{
 				//Set reset time to amount of playtime on the server
-				deathData.set("players." + uuid + ".resetTime", playtime);
+				deathData.set("players."+uuid+".resetTime", playtime);
 				//Deaths = 0
-				deathData.set("players." + uuid + ".deaths", deaths);
+				deathData.set("players."+uuid+".deaths", deaths);
 			}
 			deaths = getDeathsYML(uuid);
-			resetTime = getResetTimeYML(uuid);
-			deathData.set("players." + uuid + ".playtimeTicks", playtime - resetTime);
+			deathData.set("players."+uuid+".playtimeTicks",
+			              playtime-resetTime);
 
 			// PlayerData is empty, add every player to the hashMap
-			User user = new User(resetTime, deaths, playtime - resetTime);
+			User user = new User(resetTime, deaths, playtime-resetTime);
 			playerMap.put(uuid.toString(), user);
 		}
 		//Try to save the changes
@@ -140,9 +140,9 @@ public class DeathData
 		{
 			uuid = entry.getKey();
 			user = entry.getValue();
-			deathData.set("players." + uuid + ".resetTime", user.resetTime);
-			deathData.set("players." + uuid + ".deaths", user.deaths);
-			deathData.set("players." + uuid + ".playtimeTicks", user.resetTime);
+			deathData.set("players."+uuid+".resetTime", user.resetTime);
+			deathData.set("players."+uuid+".deaths", user.deaths);
+			deathData.set("players."+uuid+".playtimeTicks", user.playTimeTicks);
 		}
 		writeFile();
 	}
