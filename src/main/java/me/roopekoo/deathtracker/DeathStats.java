@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 
 public class DeathStats implements CommandExecutor
 {
-	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args)
+	@Override public boolean onCommand(CommandSender sender, Command command,
+	                                   String label, String[] args)
 	{
 		if(sender.hasPermission("deathcounter.getstats"))
 		{
