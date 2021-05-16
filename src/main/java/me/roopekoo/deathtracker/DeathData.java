@@ -21,20 +21,6 @@ public class DeathData
 	private final File ff = new File(BASEDIR + DEATHDATAPATH);
 	private final HashMap<String, User> playerMap = new HashMap<>();
 
-	static final class User
-	{
-		private final int resetTime;
-		private int deaths;
-		private int playTimeTicks;
-
-		public User(int resetTime, int deaths, int playTimeTicks)
-		{
-			this.resetTime = resetTime;
-			this.deaths = deaths;
-			this.playTimeTicks = playTimeTicks;
-		}
-	}
-
 	public DeathData()
 	{
 		File f = new File(BASEDIR);
@@ -173,5 +159,19 @@ public class DeathData
 				e.printStackTrace();
 			}
 		});
+	}
+
+	static final class User
+	{
+		private final int resetTime;
+		private int deaths;
+		private int playTimeTicks;
+
+		public User(int resetTime, int deaths, int playTimeTicks)
+		{
+			this.resetTime = resetTime;
+			this.deaths = deaths;
+			this.playTimeTicks = playTimeTicks;
+		}
 	}
 }
