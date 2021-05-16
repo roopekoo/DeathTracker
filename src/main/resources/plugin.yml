@@ -1,6 +1,6 @@
-name: DeathCounter
+name: DeathTracker
 version: ${project.version}
-main: me.roopekoo.deathcounter.DeathCounter
+main: me.roopekoo.deathtracker.DeathTracker
 api-version: 1.16
 authors: [ Roopekoo ]
 description: Calculates players' deaths and death rate per time unit
