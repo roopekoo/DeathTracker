@@ -1,4 +1,4 @@
-package me.roopekoo.deathcounter;
+package me.roopekoo.deathtracker;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,7 +9,7 @@ public class DeathStats implements CommandExecutor
 	@Override public boolean onCommand(CommandSender sender, Command command,
 	                                   String label, String[] args)
 	{
-		if(sender.hasPermission("deathcounter.getstats"))
+		if(sender.hasPermission("deathtracker.getstats"))
 		{
 			//TODO: Do something here
 		}
