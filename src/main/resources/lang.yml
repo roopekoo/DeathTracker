@@ -1,0 +1,8 @@
+title-name: '&4[&8Death&7Tracker&4]: '
+no-perm: '&cYou not have permission to do that!'
+player-missing: '&cPlease supply a player name!'
+invalid-player: '&cThat player has never played here!'
+invalid-parameter: '&cInvalid parameter! Expected &8time &cor &8deaths'
+player-deaths: '&e%0 &7has died &4%1 &7times with a playtime of &a%2'
+player-deathtime: '&e%0 &7has a death rate of &4%1 &7and dies approximately once per
+  &a%2'
