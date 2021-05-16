@@ -1,4 +1,4 @@
-package me.roopekoo.deathcounter;
+package me.roopekoo.deathtracker;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
