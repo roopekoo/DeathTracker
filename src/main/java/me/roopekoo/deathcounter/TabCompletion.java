@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TabCompletion implements TabCompleter {
-    @Override
-    public List < String > onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 
-        if (command.getName().equalsIgnoreCase("getdeaths") && args.length >= 2) {
-            List < String > list = new ArrayList < > ();
-            list.add("time");
-            list.add("deaths");
-            return list;
-        }
-        return null;
-    }
+		if(command.getName().equalsIgnoreCase("getdeaths") && args.length >= 2) {
+			List<String> list = new ArrayList<>();
+			list.add("time");
+			list.add("deaths");
+			return list;
+		}
+		return null;
+	}
 }
