@@ -5,17 +5,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
-public class DeathCounter extends JavaPlugin {
+public class DeathCounter extends JavaPlugin
+{
 	private static DeathCounter plugin = null;
 
-	public static DeathCounter getPlugin() {
+	public static DeathCounter getPlugin()
+	{
 		return plugin;
 	}
 
 	private final DeathData dataFile = new DeathData();
 
 	@Override
-	public void onEnable() {
+	public void onEnable()
+	{
 		plugin = this;
 		Objects.requireNonNull(plugin.getCommand("getdeaths")).setExecutor(new GetDeaths());
 		Objects.requireNonNull(plugin.getCommand("getdeaths")).setTabCompleter(new TabCompletion());
@@ -25,11 +28,13 @@ public class DeathCounter extends JavaPlugin {
 	}
 
 	@Override
-	public void onDisable() {
+	public void onDisable()
+	{
 		DeathCounter.getPlugin().get_file().writeAllToDeathData();
 	}
 
-	public DeathData get_file() {
+	public DeathData get_file()
+	{
 		return dataFile;
 	}
 }
