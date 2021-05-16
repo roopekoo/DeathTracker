@@ -145,7 +145,8 @@ public class DeathData
 			user = entry.getValue();
 			deathData.set("players."+uuid+".resetTime", user.resetTime);
 			deathData.set("players."+uuid+".deaths", user.deaths);
-			deathData.set("players."+uuid+".playtimeTicks", user.playTimeTicks);
+			deathData.set("players."+uuid+".playtimeTicks",
+			              user.playTimeTicks);
 		}
 		writeFile();
 	}

@@ -11,15 +11,14 @@ public enum Lang
 	TITLE("title-name", "&4[&8Death&7Tracker&4]: "),
 	NO_PERM("no-perm", "&cYou not have permission to do that!"),
 	PLAYER_MISSING("player-missing", "&cPlease supply a player name!"),
-	INVALID_PLAYER("invalid-player",
-	               "&cThat player has never played here!"),
+	INVALID_PLAYER("invalid-player", "&cThat player has never played here!"),
 	INVALID_PARAMETER("invalid-parameter",
 	                  "&cInvalid parameter! Expected &8time &cor &8deaths"),
 	PLAYER_DEATHS("player-deaths",
 	              "&e%0 &7has died &4%1 &7times with a playtime of &a%2"),
-	PLAYER_DEATHTIME("player-deathtime",
-	                 "&e%0 &7has a death rate of &4%1 "+
-	                 "&7and dies approximately once per &a%2");
+	PLAYER_DEATHTIME("player-deathtime", "&e%0 &7has a death rate of &4%1 "+
+	                                     "&7and dies approximately once per " +
+	                                     "&a%2");
 
 	private static YamlConfiguration LANG;
 	private final String path;

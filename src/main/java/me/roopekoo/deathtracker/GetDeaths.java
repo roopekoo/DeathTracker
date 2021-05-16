@@ -28,7 +28,8 @@ public class GetDeaths implements CommandExecutor
 				double deaths = deathData.getDeaths(pl.getUniqueId());
 				String deathSTR = String.format("%.0f", deaths);
 
-				double playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-deathData.getResetTime(pl.getUniqueId());
+				double playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-
+				                  deathData.getResetTime(pl.getUniqueId());
 				String playTimeSTR = playTicksToShortStr(playtime);
 
 				if(args.length == 1)
@@ -67,14 +68,15 @@ public class GetDeaths implements CommandExecutor
 					else if(args[1].equals("deaths"))
 					{
 						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
-						s=s.replace("%0", name);
-						s=s.replace("%1", deathSTR);
-						s=s.replace("%2", playTimeSTR);
+						s = s.replace("%0", name);
+						s = s.replace("%1", deathSTR);
+						s = s.replace("%2", playTimeSTR);
 						sender.sendMessage(s);
 					}
 					else
 					{
-						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAMETER);
+						sender.sendMessage(
+								Lang.TITLE.toString()+Lang.INVALID_PARAMETER);
 						return false;
 					}
 				}
