@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.roopekoo</groupId>
-    <artifactId>DeathCounter</artifactId>
-    <version>1.1</version>
+    <artifactId>DeathTracker</artifactId>
+    <version>1.2</version>
     <packaging>jar</packaging>
 
-    <name>DeathCounter</name>
+    <name>DeathTracker</name>
 
     <description>Calculates players' deaths and death rate per time unit</description>
     <properties>
