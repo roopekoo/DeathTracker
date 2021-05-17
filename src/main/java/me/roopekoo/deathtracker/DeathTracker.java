@@ -8,21 +8,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-public class DeathTracker extends JavaPlugin
-{
+public class DeathTracker extends JavaPlugin {
 	public static YamlConfiguration LANG;
 	public static File LANG_FILE;
 
 	private static DeathTracker plugin = null;
 	private final DeathData dataFile = new DeathData();
 
-	public static DeathTracker getPlugin()
-	{
+	public static DeathTracker getPlugin() {
 		return plugin;
 	}
 
-	@Override public void onEnable()
-	{
+	@Override public void onEnable() {
 		plugin = this;
 		Objects.requireNonNull(plugin.getCommand("getdeaths"))
 		       .setExecutor(new GetDeaths());
@@ -35,61 +32,46 @@ public class DeathTracker extends JavaPlugin
 		loadLang();
 	}
 
-	@Override public void onDisable()
-	{
+	@Override public void onDisable() {
 		DeathTracker.getPlugin().get_file().writeAllToDeathData();
 	}
 
-	public DeathData get_file()
-	{
+	public DeathData get_file() {
 		return dataFile;
 	}
 
 	/**
 	 Load the lang.yml file.
 	 */
-	public void loadLang()
-	{
+	public void loadLang() {
 		File lang = new File(getDataFolder(), "lang.yml");
-		if(!lang.exists())
-		{
-			try
-			{
+		if (!lang.exists()) {
+			try {
 				getDataFolder().mkdir();
 				lang.createNewFile();
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace(); // So they notice
-				System.out.println(
-						"[PluginName] Couldn't create language file"+".");
-				System.out.println(
-						"[PluginName] This is a fatal error. Now disabling");
-				this.setEnabled(false); // Without it loaded, we can't send
-				// them
-				// messages
+			} catch (IOException e) {
+				// Send notice
+				e.printStackTrace();
+				System.out.println("[PluginName] Couldn't create language file" + ".");
+				System.out.println("[PluginName] This is a fatal error. Now disabling");
+				// Without it loaded, we can't send them messages
+				this.setEnabled(false);
 			}
 		}
 		YamlConfiguration conf = YamlConfiguration.loadConfiguration(lang);
-		for(Lang item: Lang.values())
-		{
-			if(conf.getString(item.getPath()) == null)
-			{
+		for (Lang item: Lang.values()) {
+			if (conf.getString(item.getPath()) == null) {
 				conf.set(item.getPath(), item.getDefault());
 			}
 		}
 		Lang.setFile(conf);
 		DeathTracker.LANG = conf;
 		DeathTracker.LANG_FILE = lang;
-		try
-		{
+		try {
 			conf.save(getLangFile());
-		}
-		catch(IOException e)
-		{
+		} catch (IOException e) {
 			System.out.println("PluginName: Failed to save lang.yml.");
-			System.out.println(
-					"PluginName: Report this stack trace to Roopekoo.");
+			System.out.println("PluginName: Report this stack trace to Roopekoo.");
 			e.printStackTrace();
 		}
 	}
@@ -107,8 +89,7 @@ public class DeathTracker extends JavaPlugin
 	 Get the lang.yml file.
 	 @return The lang.yml file.
 	 */
-	public File getLangFile()
-	{
+	public File getLangFile() {
 		return LANG_FILE;
 	}
 }

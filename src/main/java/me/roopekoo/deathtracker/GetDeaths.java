@@ -7,53 +7,41 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-public class GetDeaths implements CommandExecutor
-{
-	@Override public boolean onCommand(CommandSender sender, Command command,
-	                                   String label, String[] args)
-	{
-		if(sender.hasPermission("deathtracker.getdeaths"))
-		{
-			if(args.length>0)
-			{
+public class GetDeaths implements CommandExecutor {
+	private final DeathTimeConverter converter = new DeathTimeConverter();
+
+	@Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		if (sender.hasPermission("deathtracker.getdeaths")) {
+			if (args.length > 0) {
 				String name = args[0];
 				OfflinePlayer pl = Bukkit.getOfflinePlayer(name);
-				if(!pl.hasPlayedBefore())
-				{
-					sender.sendMessage(
-							Lang.TITLE.toString()+Lang.INVALID_PLAYER);
+				if (!pl.hasPlayedBefore()) {
+					sender.sendMessage(Lang.TITLE.toString() + Lang.INVALID_PLAYER);
 					return true;
 				}
 				DeathData deathData = DeathTracker.getPlugin().get_file();
 				double deaths = deathData.getDeaths(pl.getUniqueId());
 				String deathSTR = String.format("%.0f", deaths);
 
-				double playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-
-				                  deathData.getResetTime(pl.getUniqueId());
-				String playTimeSTR = playTicksToShortStr(playtime);
+				double playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE) - deathData.getResetTime(pl.getUniqueId());
+				String playTimeSTR = converter.playTicksToShortStr(playtime);
 
-				if(args.length == 1)
-				{
+				if (args.length == 1) {
 					// getdeaths [player]
-					String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+					String s = Lang.TITLE.toString() + Lang.PLAYER_DEATHS;
 					s = s.replace("%0", name);
 					s = s.replace("%1", deathSTR);
 					s = s.replace("%2", playTimeSTR);
 					sender.sendMessage(s);
-				}
-				else if(args.length == 2)
-				{
+				} else if (args.length == 2) {
 					// getdeaths [player] time
-					if(args[1].equals("time"))
-					{
-						double deathTime = deaths/playtime;
-						double timeDeath = playtime/deaths;
-						if(playtime == 0)
-						{
+					if (args[1].equals("time")) {
+						double deathTime = deaths / playtime;
+						double timeDeath = playtime / deaths;
+						if (playtime == 0) {
 							deathTime = 0;
 						}
-						if(deaths == 0)
-						{
+						if (deaths == 0) {
 							timeDeath = 0;
 						}
 						String deathPerTime = deathPerTime(deathTime);
@@ -65,18 +53,14 @@ public class GetDeaths implements CommandExecutor
 						sender.sendMessage(s);
 					}
 					// getdeaths [player] deaths
-					else if(args[1].equals("deaths"))
-					{
-						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+					else if (args[1].equals("deaths")) {
+						String s = Lang.TITLE.toString() + Lang.PLAYER_DEATHS;
 						s = s.replace("%0", name);
 						s = s.replace("%1", deathSTR);
 						s = s.replace("%2", playTimeSTR);
 						sender.sendMessage(s);
-					}
-					else
-					{
-						sender.sendMessage(
-								Lang.TITLE.toString()+Lang.INVALID_PARAMETER);
+					} else {
+						sender.sendMessage(Lang.TITLE.toString() + Lang.INVALID_PARAM);
 						return false;
 					}
 				}
