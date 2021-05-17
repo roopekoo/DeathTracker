@@ -3,6 +3,7 @@ package me.roopekoo.deathtracker;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -165,8 +166,111 @@ public class DeathData
 		});
 	}
 
-	static final class User
-	{
+	public void printImmortal(CommandSender sender) {
+		int i = 1;
+		String iSTR;
+		String name;
+		String playTime;
+		for (User user: immortals) {
+			if (i == TOP_LIMIT + 1) {
+				break;
+			}
+			iSTR = String.valueOf(i);
+			name = Bukkit.getOfflinePlayer(user.uuid).getName();
+			assert name != null;
+			playTime = converter.playTicksToShortStr(user.playTimeTicks);
+			String s = Lang.IMMORTAL_STATS.toString();
+			s = s.replace("%0", iSTR);
+			s = s.replace("%1", name);
+			s = s.replace("%2", playTime);
+			sender.sendMessage(s);
+			i++;
+		}
+	}
+
+	public void printLowDeathRate(CommandSender sender) {
+		int i = 1;
+		String iSTR;
+		String name;
+		String deathRate;
+		for (User user: lowDeathRate) {
+			iSTR = String.valueOf(i);
+			name = Bukkit.getOfflinePlayer(user.uuid).getName();
+			assert name != null;
+			deathRate = converter.deathPerTime((double) user.deaths / (double) user.playTimeTicks);
+			String s = Lang.DEATHRATE_STATS.toString();
+			s = s.replace("%0", iSTR);
+			s = s.replace("%1", name);
+			s = s.replace("%2", deathRate);
+			sender.sendMessage(s);
+			i++;
+		}
+	}
+
+	public void printHighDeathRate(CommandSender sender) {
+		int i = 1;
+		String iSTR;
+		String name;
+		String deathRate;
+		for (User user: highDeathRate) {
+			iSTR = String.valueOf(i);
+			name = Bukkit.getOfflinePlayer(user.uuid).getName();
+			assert name != null;
+			deathRate = converter.deathPerTime((double) user.deaths / (double) user.playTimeTicks);
+			String s = Lang.DEATHRATE_STATS.toString();
+			s = s.replace("%0", iSTR);
+			s = s.replace("%1", name);
+			s = s.replace("%2", deathRate);
+			sender.sendMessage(s);
+			i++;
+		}
+	}
+
+	public void printHighDeaths(CommandSender sender) {
+		int i = 1;
+		String iSTR;
+		String name;
+		String deaths;
+		String playTime;
+		for (User user: highDeaths) {
+			iSTR = String.valueOf(i);
+			name = Bukkit.getOfflinePlayer(user.uuid).getName();
+			assert name != null;
+			deaths = String.valueOf(user.deaths);
+			playTime = converter.playTicksToShortStr(user.playTimeTicks);
+			String s = Lang.DEATH_STATS.toString();
+			s = s.replace("%0", iSTR);
+			s = s.replace("%1", name);
+			s = s.replace("%2", deaths);
+			s = s.replace("%3", playTime);
+			sender.sendMessage(s);
+			i++;
+		}
+	}
+
+	public void printLowDeaths(CommandSender sender) {
+		int i = 1;
+		String iSTR;
+		String name;
+		String deaths;
+		String playTime;
+		for (User user: lowDeaths) {
+			iSTR = String.valueOf(i);
+			name = Bukkit.getOfflinePlayer(user.uuid).getName();
+			assert name != null;
+			deaths = String.valueOf(user.deaths);
+			playTime = converter.playTicksToShortStr(user.playTimeTicks);
+			String s = Lang.DEATH_STATS.toString();
+			s = s.replace("%0", iSTR);
+			s = s.replace("%1", name);
+			s = s.replace("%2", deaths);
+			s = s.replace("%3", playTime);
+			sender.sendMessage(s);
+			i++;
+		}
+	}
+
+	static final class User {
 		private final int resetTime;
 		private int deaths;
 		private int playTimeTicks;
