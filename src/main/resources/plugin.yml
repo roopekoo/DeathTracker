@@ -10,3 +10,4 @@ commands:
     usage: /<command> [player] [time|deaths]
   deathstats:
     description: 'Get statistics of the top 10 most and least mortal player'
+    usage: /<command> [deaths|deathrate|immortals] (high|low)
