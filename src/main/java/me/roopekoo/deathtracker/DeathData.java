@@ -17,8 +17,9 @@ public class DeathData {
 	private static final String BASEDIR = "plugins/DeathTracker";
 	private static final String DEATHDATAPATH = "/deathData.yml";
 	private final YamlConfiguration deathData;
-	private final File ff = new File(BASEDIR+DEATHDATAPATH);
-	private final HashMap<String, User> playerMap = new HashMap<>();
+	private final DeathTimeConverter converter = new DeathTimeConverter();
+	private final File ff = new File(BASEDIR + DEATHDATAPATH);
+	private final HashMap < String, User > playerMap = new HashMap < > ();
 
 	public DeathData()
 	{
