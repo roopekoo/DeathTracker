@@ -10,13 +10,10 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ForkJoinPool;
 
-public class DeathData
-{
+public class DeathData {
 	private static final String BASEDIR = "plugins/DeathTracker";
 	private static final String DEATHDATAPATH = "/deathData.yml";
 	private final YamlConfiguration deathData;
@@ -26,18 +23,13 @@ public class DeathData
 	public DeathData()
 	{
 		File f = new File(BASEDIR);
-		if(!f.exists())
-		{
+		if (!f.exists()) {
 			f.mkdir();
 		}
-		if(!f.exists())
-		{
-			try
-			{
+		if (!f.exists()) {
+			try {
 				ff.createNewFile();
-			}
-			catch(IOException e)
-			{
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -52,57 +44,48 @@ public class DeathData
 	}
 
 	//At least template data exist on the PlayerData
-	public void addDeath(Player player)
-	{
+	public void addDeath(Player player) {
 		String uuid = player.getUniqueId().toString();
 		User user = playerMap.get(uuid);
 		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		int resetTime = user.resetTime;
 
 		user.deaths++;
-		user.playTimeTicks = playTime-resetTime;
+		user.playTimeTicks = playTime - resetTime;
 	}
 
-	public void updateTime(Player player)
-	{
+	public void updateTime(Player player) {
 		String uuid = player.getUniqueId().toString();
 		User user = playerMap.get(uuid);
 		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		int resetTime = user.resetTime;
 
-		user.playTimeTicks = playTime-resetTime;
+		user.playTimeTicks = playTime - resetTime;
 	}
 
-	public boolean noPlayerInYML(UUID uuid)
-	{
-		ConfigurationSection sec = deathData.getConfigurationSection(
-				"players");
+	public boolean noPlayerInYML(UUID uuid) {
+		ConfigurationSection sec = deathData.getConfigurationSection("players");
 		return sec == null || !sec.contains(uuid.toString());
 	}
 
-	public int getDeathsYML(UUID player)
-	{
-		return deathData.getInt("players."+player+".deaths");
+	public int getDeathsYML(UUID player) {
+		return deathData.getInt("players." + player + ".deaths");
 	}
 
-	public int getDeaths(UUID player)
-	{
+	public int getDeaths(UUID player) {
 		return playerMap.get(player.toString()).deaths;
 	}
 
-	public int getResetTime(UUID player)
-	{
+	public int getResetTime(UUID player) {
 		return playerMap.get(player.toString()).resetTime;
 	}
 
-	public int getResetTimeYML(UUID player)
-	{
-		return deathData.getInt("players."+player+".resetTime");
+	public int getResetTimeYML(UUID player) {
+		return deathData.getInt("players." + player + ".resetTime");
 	}
 
 	//Adds all missing players to the deathData.yml file
-	public void initializePlayerData()
-	{
+	public void initializePlayerData() {
 		int deaths = 0;
 		UUID uuid;
 		int playtime;
@@ -110,17 +93,15 @@ public class DeathData
 
 		OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
 		// Go through all offline players
-		for(OfflinePlayer offlinePlayer: offlinePlayers)
-		{
+		for (OfflinePlayer offlinePlayer: offlinePlayers) {
 			uuid = offlinePlayer.getUniqueId();
 			playtime = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			// Player is not yet on the deathData file
-			if(noPlayerInYML(uuid))
-			{
+			if (noPlayerInYML(uuid)) {
 				//Set reset time to amount of playtime on the server
 				deathData.set("players."+uuid+".resetTime", playtime);
 				//Deaths = 0
-				deathData.set("players."+uuid+".deaths", deaths);
+				deathData.set("players." + uuid + ".deaths", deaths);
 			}
 			resetTime = getResetTimeYML(uuid);
 			deaths = getDeathsYML(uuid);
@@ -140,27 +121,20 @@ public class DeathData
 	{
 		User user;
 		String uuid;
-		for(Map.Entry<String, User> entry: playerMap.entrySet())
-		{
+		for (Map.Entry < String, User > entry: playerMap.entrySet()) {
 			uuid = entry.getKey();
 			user = entry.getValue();
-			deathData.set("players."+uuid+".resetTime", user.resetTime);
-			deathData.set("players."+uuid+".deaths", user.deaths);
-			deathData.set("players."+uuid+".playtimeTicks",
-			              user.playTimeTicks);
+			deathData.set("players." + uuid + ".resetTime", user.resetTime);
+			deathData.set("players." + uuid + ".deaths", user.deaths);
 		}
 		writeFile();
 	}
 
-	private void writeFile()
-	{
-		ForkJoinPool.commonPool().submit(()->{
-			try
-			{
+	private void writeFile() {
+		ForkJoinPool.commonPool().submit(() -> {
+			try {
 				deathData.save(ff);
-			}
-			catch(IOException e)
-			{
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
