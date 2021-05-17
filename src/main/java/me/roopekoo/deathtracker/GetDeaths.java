@@ -63,17 +63,16 @@ public class GetDeaths implements CommandExecutor {
 						sender.sendMessage(Lang.TITLE.toString() + Lang.INVALID_PARAM);
 						return false;
 					}
+				} else {
+					sender.sendMessage(Lang.TITLE.toString() + Lang.TOO_MANY_PARAMS);
+					return false;
 				}
-			}
-			else
-			{
-				sender.sendMessage(Lang.TITLE.toString()+Lang.PLAYER_MISSING);
+			} else {
+				sender.sendMessage(Lang.TITLE.toString() + Lang.NOT_ENOUGH_PARAMS);
 				return false;
 			}
-		}
-		else
-		{
-			sender.sendMessage(Lang.TITLE.toString()+Lang.NO_PERM);
+		} else {
+			sender.sendMessage(Lang.TITLE.toString() + Lang.NO_PERM);
 		}
 		return true;
 	}
