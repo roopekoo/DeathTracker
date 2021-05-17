@@ -21,8 +21,17 @@ public class DeathData {
 	private final File ff = new File(BASEDIR + DEATHDATAPATH);
 	private final HashMap < String, User > playerMap = new HashMap < > ();
 
-	public DeathData()
-	{
+	private final ArrayList < User > mortals = new ArrayList < > ();
+	private final ArrayList < User > immortals = new ArrayList < > ();
+	private final ArrayList < User > highDeaths = new ArrayList < > ();
+	private final ArrayList < User > lowDeaths = new ArrayList < > ();
+	private final ArrayList < User > highDeathRate = new ArrayList < > ();
+	private final ArrayList < User > lowDeathRate = new ArrayList < > ();
+
+	//Top 10 lists
+	int TOP_LIMIT = 10;
+
+	public DeathData() {
 		File f = new File(BASEDIR);
 		if (!f.exists()) {
 			f.mkdir();
