@@ -44,9 +44,9 @@ public class GetDeaths implements CommandExecutor {
 						if (deaths == 0) {
 							timeDeath = 0;
 						}
-						String deathPerTime = deathPerTime(deathTime);
-						String timePerDeath = playTicksToShortStr(timeDeath);
-						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHTIME;
+						String deathPerTime = converter.deathPerTime(deathTime);
+						String timePerDeath = converter.playTicksToShortStr(timeDeath);
+						String s = Lang.TITLE.toString() + Lang.PLAYER_DEATHTIME;
 						s = s.replace("%0", name);
 						s = s.replace("%1", deathPerTime);
 						s = s.replace("%2", timePerDeath);
@@ -76,62 +76,5 @@ public class GetDeaths implements CommandExecutor {
 			sender.sendMessage(Lang.TITLE.toString()+Lang.NO_PERM);
 		}
 		return true;
-	}
-
-	String deathPerTime(double deathTime)
-	{
-		double seconds = deathTime*20;
-		if(seconds>1)
-		{
-			return String.format("%.2f", seconds)+" deaths/second";
-		}
-		double minutes = seconds*60;
-		if(minutes>1)
-		{
-			return String.format("%.2f", minutes)+" deaths/minute";
-		}
-		double hours = minutes*60;
-		if(hours>1)
-		{
-			return String.format("%.2f", hours)+" deaths/hour";
-		}
-		double days = hours*24;
-		if(days>1)
-		{
-			return String.format("%.2f", days)+" deaths/day";
-		}
-		double years = days*365.25;
-		return String.format("%.2f", years)+" deaths/year";
-	}
-
-	String playTicksToShortStr(double playTime)
-	{
-		double milliseconds = playTime*50;
-		if(1000>milliseconds)
-		{
-			return String.format("%.2f", milliseconds)+" milliseconds";
-		}
-		double seconds = milliseconds/1000;
-		if(60>seconds)
-		{
-			return String.format("%.2f", seconds)+" seconds";
-		}
-		double minutes = seconds/60;
-		if(60>minutes)
-		{
-			return String.format("%.2f", minutes)+" minutes";
-		}
-		double hours = minutes/60;
-		if(24>hours)
-		{
-			return String.format("%.2f", hours)+" hours";
-		}
-		double days = hours/24;
-		if(365.25>days)
-		{
-			return String.format("%.2f", days)+" days";
-		}
-		double years = days/365.25;
-		return String.format("%.2f", years)+" years";
 	}
 }
