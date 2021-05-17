@@ -97,25 +97,25 @@ public class DeathData {
 	public void initializePlayerData() {
 		int deaths = 0;
 		UUID uuid;
-		int playtime;
+		int totalTime;
 		int resetTime;
+		int playTime;
 
 		OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
 		// Go through all offline players
 		for (OfflinePlayer offlinePlayer: offlinePlayers) {
 			uuid = offlinePlayer.getUniqueId();
-			playtime = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
+			totalTime = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			// Player is not yet on the deathData file
 			if (noPlayerInYML(uuid)) {
 				//Set reset time to amount of playtime on the server
-				deathData.set("players."+uuid+".resetTime", playtime);
+				deathData.set("players." + uuid + ".resetTime", totalTime);
 				//Deaths = 0
 				deathData.set("players." + uuid + ".deaths", deaths);
 			}
 			resetTime = getResetTimeYML(uuid);
+			playTime = totalTime - resetTime;
 			deaths = getDeathsYML(uuid);
-			deathData.set("players."+uuid+".playtimeTicks",
-			              playtime-resetTime);
 
 			// PlayerData is empty, add every player to the hashMap
 			User user = new User(uuid, resetTime, deaths, playTime);
