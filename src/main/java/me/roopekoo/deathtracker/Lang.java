@@ -9,16 +9,21 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public enum Lang {
 	TITLE("title-name", "&4[&8Death&7Tracker&4]: "),
 	NO_PERM("no-perm", "&cYou not have permission to do that!"),
-	PLAYER_MISSING("player-missing", "&cPlease supply a player name!"),
 	INVALID_PLAYER("invalid-player", "&cThat player has never played here!"),
-	INVALID_PARAMETER("invalid-parameter",
-	                  "&cInvalid parameter! Expected &8time &cor &8deaths"),
-	PLAYER_DEATHS("player-deaths",
-	              "&e%0 &7has died &4%1 &7times with a playtime of &a%2"),
-	PLAYER_DEATHTIME("player-deathtime", "&e%0 &7has a death rate of &4%1 "+
-	                                     "&7and dies approximately once per " +
-	                                     "&a%2");
-
+	INVALID_PARAM("invalid-param", "&cInvalid parameter!"),
+	PLAYER_DEATHS("player-deaths", "&e%0 &7has died &4%1 &7times with a playtime of &a%2"),
+	PLAYER_DEATHTIME("player-deathtime",
+	                 "&e%0 &7has a death rate of &4%1 " + "&7and dies approximately once per " + "&a%2"),
+	TOO_MANY_PARAMS("too-many-params", "&cToo many parameters!"),
+	NOT_ENOUGH_PARAMS("not-enough-params", "&cNot enough parameters!"),
+	IMMORTAL_STATS("immortal-stats", "%0: &e%1 &7,playtime of &2%2"),
+	IMMORTAL_TITLE("immortal-title", "&6&nTop 10 immortal players:"),
+	DEATHRATE_STATS("deathrate-stats", "%0: &e%1&7, deathrate of &2%2"),
+	LOW_DEATHRATE_TITLE("low-deathrate-title", "&6&nTop 10 low-deathrate players:"),
+	HIGH_DEATHRATE_TITLE("high-deathrate-title", "&6&nTop 10 high-deathrate players:"),
+	DEATH_STATS("death-stats", "%0: &e%1, &4%2 &7deaths, playtime of &2%3"),
+	LOW_DEATHS("low-deaths", "&6&nTop 10 players with low mortality:"),
+	HIGH_DEATHS("high-deaths", "&6&nTop 10 players with high mortality:");
 	private static YamlConfiguration LANG;
 	private final String path;
 	private final String def;
