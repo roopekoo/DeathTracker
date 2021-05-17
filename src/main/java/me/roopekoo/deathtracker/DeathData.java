@@ -120,6 +120,14 @@ public class DeathData {
 			// PlayerData is empty, add every player to the hashMap
 			User user = new User(uuid, resetTime, deaths, playTime);
 			playerMap.put(uuid.toString(), user);
+			if (playTime != 0) {
+				if (deaths == 0) {
+					immortals.add(user);
+				} else {
+					mortals.add(user);
+				}
+			}
+
 		}
 		//Try to save the changes
 		writeFile();
