@@ -132,10 +132,59 @@ public class DeathData {
 		//Try to save the changes
 		writeFile();
 		System.out.println("Offline players death/playtime updated");
+		sortImmortals();
+		sortMortals();
 	}
 
-	public void writeAllToDeathData()
-	{
+	private void sortImmortals() {
+		immortals.sort(new compTime());
+	}
+
+	private void sortMortals() {
+		User user;
+		int limit = TOP_LIMIT;
+		int containerSize = mortals.size();
+		if (containerSize < limit) {
+			limit = containerSize;
+		}
+		//Top 10 most deaths
+		mortals.sort(new compDeaths());
+		for (int i = 0; i < containerSize; i++) {
+			if (i == limit) {
+				break;
+			}
+			user = mortals.get(i);
+			highDeaths.add(user);
+		}
+		//Top 10 least deaths (>0)
+		for (int i = containerSize - 1; i >= 0; i--) {
+			if (i == containerSize - limit - 1) {
+				break;
+			}
+			user = mortals.get(i);
+			lowDeaths.add(user);
+		}
+
+		//greatest death density
+		mortals.sort(new compDeathTime());
+		for (int i = 0; i < containerSize; i++) {
+			if (i == limit) {
+				break;
+			}
+			user = mortals.get(i);
+			highDeathRate.add(user);
+		}
+		//Smallest death density
+		for (int i = containerSize - 1; i >= 0; i--) {
+			if (i == containerSize - limit - 1) {
+				break;
+			}
+			user = mortals.get(i);
+			lowDeathRate.add(user);
+		}
+	}
+
+	public void writeAllToDeathData() {
 		User user;
 		String uuid;
 		for (Map.Entry < String, User > entry: playerMap.entrySet()) {
