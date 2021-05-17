@@ -323,4 +323,42 @@ public class DeathData {
 			this.playTimeTicks = playTimeTicks;
 		}
 	}
+
+	static class compDeaths implements Comparator < User > {
+		@Override public int compare(User o1, User o2) {
+			int diff = o2.deaths - o1.deaths;
+			int result;
+			if (diff < 0) {
+				result = -1;
+			} else if (diff > 0) {
+				result = 1;
+			} else {
+				result = o1.playTimeTicks - o2.playTimeTicks;
+			}
+			return result;
+		}
+	}
+
+	static class compDeathTime implements Comparator < User > {
+		@Override public int compare(User o1, User o2) {
+			double diff = Double.compare((double) o2.deaths / (double) o2.playTimeTicks,
+			                             (double) o1.deaths / (double) o1.playTimeTicks);
+			int result;
+			if (diff < 0) {
+				result = -1;
+			} else if (diff > 0) {
+				result = 1;
+			} else {
+				result = 0;
+			}
+			return result;
+		}
+	}
+
+	static class compTime implements Comparator < User > {
+
+		@Override public int compare(User o1, User o2) {
+			return o2.playTimeTicks - o1.playTimeTicks;
+		}
+	}
 }
