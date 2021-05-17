@@ -46,11 +46,10 @@ public class DeathData {
 		deathData = YamlConfiguration.loadConfiguration(ff);
 	}
 
-	public void addNewPlayer(Player player)
-	{
-		String uuid = player.getUniqueId().toString();
-		User user = new User(0, 0, 0);
-		playerMap.put(uuid, user);
+	public void addNewPlayer(Player player) {
+		UUID uuid = player.getUniqueId();
+		User user = new User(uuid, 0, 0, 0);
+		playerMap.put(uuid.toString(), user);
 	}
 
 	//At least template data exist on the PlayerData
@@ -119,7 +118,7 @@ public class DeathData {
 			              playtime-resetTime);
 
 			// PlayerData is empty, add every player to the hashMap
-			User user = new User(resetTime, deaths, playtime-resetTime);
+			User user = new User(uuid, resetTime, deaths, playTime);
 			playerMap.put(uuid.toString(), user);
 		}
 		//Try to save the changes
@@ -256,11 +255,12 @@ public class DeathData {
 
 	static final class User {
 		private final int resetTime;
+		private final UUID uuid;
 		private int deaths;
 		private int playTimeTicks;
 
-		public User(int resetTime, int deaths, int playTimeTicks)
-		{
+		public User(UUID uuid, int resetTime, int deaths, int playTimeTicks) {
+			this.uuid = uuid;
 			this.resetTime = resetTime;
 			this.deaths = deaths;
 			this.playTimeTicks = playTimeTicks;
