@@ -75,15 +75,6 @@ public class DeathTracker extends JavaPlugin {
 	}
 
 	/**
-	 Gets the lang.yml config.
-	 @return The lang.yml config.
-	 */
-	public YamlConfiguration getLang()
-	{
-		return LANG;
-	}
-
-	/**
 	 Get the lang.yml file.
 	 @return The lang.yml file.
 	 */
