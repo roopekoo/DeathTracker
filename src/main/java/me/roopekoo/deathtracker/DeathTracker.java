@@ -21,12 +21,10 @@ public class DeathTracker extends JavaPlugin {
 
 	@Override public void onEnable() {
 		plugin = this;
-		Objects.requireNonNull(plugin.getCommand("getdeaths"))
-		       .setExecutor(new GetDeaths());
-		Objects.requireNonNull(plugin.getCommand("getdeaths"))
-		       .setTabCompleter(new TabCompletion());
-		Objects.requireNonNull(plugin.getCommand("deathstats"))
-		       .setExecutor(new DeathStats());
+		Objects.requireNonNull(plugin.getCommand("getdeaths")).setExecutor(new GetDeaths());
+		Objects.requireNonNull(plugin.getCommand("getdeaths")).setTabCompleter(new TabCompletion());
+		Objects.requireNonNull(plugin.getCommand("deathstats")).setExecutor(new DeathStats());
+		Objects.requireNonNull(plugin.getCommand("deathstats")).setTabCompleter(new TabCompletion());
 		Bukkit.getPluginManager().registerEvents(new DeathHandler(), plugin);
 		DeathTracker.getPlugin().get_file().initializePlayerData();
 		loadLang();

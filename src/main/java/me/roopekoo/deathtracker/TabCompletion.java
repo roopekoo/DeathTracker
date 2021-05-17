@@ -14,8 +14,21 @@ public class TabCompletion implements TabCompleter {
 
 			list.add("deaths");
 			list.add("time");
-			list.add("deaths");
 			return list;
+		} else if (command.getName().equalsIgnoreCase("deathstats")) {
+			if (args.length == 1) {
+				List < String > list = new ArrayList < > ();
+				list.add("deathrate");
+				list.add("deaths");
+				list.add("immortals");
+				return list;
+			}
+			if (args.length == 2 && !args[0].equals("immortals")) {
+				List < String > list = new ArrayList < > ();
+				list.add("high");
+				list.add("low");
+				return list;
+			}
 		}
 		return null;
 	}
