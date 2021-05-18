@@ -16,7 +16,7 @@ public class DeathHandler implements Listener {
 	@EventHandler public void on(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		DeathData d = DeathTracker.getPlugin().get_file();
-		if (!p.hasPlayedBefore()) {
+		if(!p.hasPlayedBefore()) {
 			d.addNewPlayer(p);
 		} else {
 			d.updateTime(p);

@@ -12,8 +12,7 @@ public enum Lang {
 	INVALID_PLAYER("invalid-player", "&cThat player has never played here!"),
 	INVALID_PARAM("invalid-param", "&cInvalid parameter!"),
 	PLAYER_DEATHS("player-deaths", "&e%0 &7has died &4%1 &7times with a playtime of &a%2"),
-	PLAYER_DEATHTIME("player-deathtime",
-	                 "&e%0 &7has a death rate of &4%1 " + "&7and dies approximately once per " + "&a%2"),
+	PLAYER_DEATHTIME("player-deathtime", "&e%0 &7has a death rate of &4%1 &7and dies approximately once per &a%2"),
 	TOO_MANY_PARAMS("too-many-params", "&cToo many parameters!"),
 	NOT_ENOUGH_PARAMS("not-enough-params", "&cNot enough parameters!"),
 	IMMORTAL_STATS("immortal-stats", "%0: &e%1 &7,playtime of &2%2"),
@@ -24,6 +23,7 @@ public enum Lang {
 	DEATH_STATS("death-stats", "%0: &e%1, &4%2 &7deaths, playtime of &2%3"),
 	LOW_DEATHS("low-deaths", "&6&nTop 10 players with low mortality:"),
 	HIGH_DEATHS("high-deaths", "&6&nTop 10 players with high mortality:");
+
 	private static YamlConfiguration LANG;
 	private final String path;
 	private final String def;

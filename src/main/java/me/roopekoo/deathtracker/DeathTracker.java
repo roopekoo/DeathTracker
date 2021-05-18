@@ -43,11 +43,11 @@ public class DeathTracker extends JavaPlugin {
 	 */
 	public void loadLang() {
 		File lang = new File(getDataFolder(), "lang.yml");
-		if (!lang.exists()) {
+		if(!lang.exists()) {
 			try {
 				getDataFolder().mkdir();
 				lang.createNewFile();
-			} catch (IOException e) {
+			} catch(IOException e) {
 				// Send notice
 				e.printStackTrace();
 				System.out.println("[PluginName] Couldn't create language file" + ".");
@@ -57,8 +57,8 @@ public class DeathTracker extends JavaPlugin {
 			}
 		}
 		YamlConfiguration conf = YamlConfiguration.loadConfiguration(lang);
-		for (Lang item: Lang.values()) {
-			if (conf.getString(item.getPath()) == null) {
+		for(Lang item: Lang.values()) {
+			if(conf.getString(item.getPath()) == null) {
 				conf.set(item.getPath(), item.getDefault());
 			}
 		}

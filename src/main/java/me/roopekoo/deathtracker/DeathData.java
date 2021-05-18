@@ -18,28 +18,28 @@ public class DeathData {
 	private static final String DEATHDATAPATH = "/deathData.yml";
 	private final YamlConfiguration deathData;
 	private final DeathTimeConverter converter = new DeathTimeConverter();
-	private final File ff = new File(BASEDIR + DEATHDATAPATH);
-	private final HashMap < String, User > playerMap = new HashMap < > ();
+	private final File ff = new File(BASEDIR+DEATHDATAPATH);
+	private final HashMap<String, User> playerMap = new HashMap<>();
 
-	private final ArrayList < User > mortals = new ArrayList < > ();
-	private final ArrayList < User > immortals = new ArrayList < > ();
-	private final ArrayList < User > highDeaths = new ArrayList < > ();
-	private final ArrayList < User > lowDeaths = new ArrayList < > ();
-	private final ArrayList < User > highDeathRate = new ArrayList < > ();
-	private final ArrayList < User > lowDeathRate = new ArrayList < > ();
+	private final ArrayList<User> mortals = new ArrayList<>();
+	private final ArrayList<User> immortals = new ArrayList<>();
+	private final ArrayList<User> highDeaths = new ArrayList<>();
+	private final ArrayList<User> lowDeaths = new ArrayList<>();
+	private final ArrayList<User> highDeathRate = new ArrayList<>();
+	private final ArrayList<User> lowDeathRate = new ArrayList<>();
 
 	//Top 10 lists
 	int TOP_LIMIT = 10;
 
 	public DeathData() {
 		File f = new File(BASEDIR);
-		if (!f.exists()) {
+		if(!f.exists()) {
 			f.mkdir();
 		}
-		if (!f.exists()) {
+		if(!f.exists()) {
 			try {
 				ff.createNewFile();
-			} catch (IOException e) {
+			} catch(IOException e) {
 				e.printStackTrace();
 			}
 		}
@@ -60,7 +60,7 @@ public class DeathData {
 		int resetTime = user.resetTime;
 
 		user.deaths++;
-		user.playTimeTicks = playTime - resetTime;
+		user.playTimeTicks = playTime-resetTime;
 	}
 
 	public void updateTime(Player player) {
@@ -69,7 +69,7 @@ public class DeathData {
 		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		int resetTime = user.resetTime;
 
-		user.playTimeTicks = playTime - resetTime;
+		user.playTimeTicks = playTime-resetTime;
 	}
 
 	public boolean noPlayerInYML(UUID uuid) {
@@ -78,7 +78,7 @@ public class DeathData {
 	}
 
 	public int getDeathsYML(UUID player) {
-		return deathData.getInt("players." + player + ".deaths");
+		return deathData.getInt("players."+player+".deaths");
 	}
 
 	public int getDeaths(UUID player) {
@@ -90,7 +90,7 @@ public class DeathData {
 	}
 
 	public int getResetTimeYML(UUID player) {
-		return deathData.getInt("players." + player + ".resetTime");
+		return deathData.getInt("players."+player+".resetTime");
 	}
 
 	//Adds all missing players to the deathData.yml file
@@ -103,25 +103,25 @@ public class DeathData {
 
 		OfflinePlayer[] offlinePlayers = Bukkit.getOfflinePlayers();
 		// Go through all offline players
-		for (OfflinePlayer offlinePlayer: offlinePlayers) {
+		for(OfflinePlayer offlinePlayer: offlinePlayers) {
 			uuid = offlinePlayer.getUniqueId();
 			totalTime = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			// Player is not yet on the deathData file
-			if (noPlayerInYML(uuid)) {
+			if(noPlayerInYML(uuid)) {
 				//Set reset time to amount of playtime on the server
-				deathData.set("players." + uuid + ".resetTime", totalTime);
+				deathData.set("players."+uuid+".resetTime", totalTime);
 				//Deaths = 0
-				deathData.set("players." + uuid + ".deaths", deaths);
+				deathData.set("players."+uuid+".deaths", deaths);
 			}
 			resetTime = getResetTimeYML(uuid);
-			playTime = totalTime - resetTime;
+			playTime = totalTime-resetTime;
 			deaths = getDeathsYML(uuid);
 
 			// PlayerData is empty, add every player to the hashMap
 			User user = new User(uuid, resetTime, deaths, playTime);
 			playerMap.put(uuid.toString(), user);
-			if (playTime != 0) {
-				if (deaths == 0) {
+			if(playTime != 0) {
+				if(deaths == 0) {
 					immortals.add(user);
 				} else {
 					mortals.add(user);
@@ -144,21 +144,21 @@ public class DeathData {
 		User user;
 		int limit = TOP_LIMIT;
 		int containerSize = mortals.size();
-		if (containerSize < limit) {
+		if(containerSize<limit) {
 			limit = containerSize;
 		}
 		//Top 10 most deaths
 		mortals.sort(new compDeaths());
-		for (int i = 0; i < containerSize; i++) {
-			if (i == limit) {
+		for(int i = 0; i<containerSize; i++) {
+			if(i == limit) {
 				break;
 			}
 			user = mortals.get(i);
 			highDeaths.add(user);
 		}
 		//Top 10 least deaths (>0)
-		for (int i = containerSize - 1; i >= 0; i--) {
-			if (i == containerSize - limit - 1) {
+		for(int i = containerSize-1; i>=0; i--) {
+			if(i == containerSize-limit-1) {
 				break;
 			}
 			user = mortals.get(i);
@@ -167,16 +167,16 @@ public class DeathData {
 
 		//greatest death density
 		mortals.sort(new compDeathTime());
-		for (int i = 0; i < containerSize; i++) {
-			if (i == limit) {
+		for(int i = 0; i<containerSize; i++) {
+			if(i == limit) {
 				break;
 			}
 			user = mortals.get(i);
 			highDeathRate.add(user);
 		}
 		//Smallest death density
-		for (int i = containerSize - 1; i >= 0; i--) {
-			if (i == containerSize - limit - 1) {
+		for(int i = containerSize-1; i>=0; i--) {
+			if(i == containerSize-limit-1) {
 				break;
 			}
 			user = mortals.get(i);
@@ -187,20 +187,20 @@ public class DeathData {
 	public void writeAllToDeathData() {
 		User user;
 		String uuid;
-		for (Map.Entry < String, User > entry: playerMap.entrySet()) {
+		for(Map.Entry<String, User> entry: playerMap.entrySet()) {
 			uuid = entry.getKey();
 			user = entry.getValue();
-			deathData.set("players." + uuid + ".resetTime", user.resetTime);
-			deathData.set("players." + uuid + ".deaths", user.deaths);
+			deathData.set("players."+uuid+".resetTime", user.resetTime);
+			deathData.set("players."+uuid+".deaths", user.deaths);
 		}
 		writeFile();
 	}
 
 	private void writeFile() {
-		ForkJoinPool.commonPool().submit(() -> {
+		ForkJoinPool.commonPool().submit(()->{
 			try {
 				deathData.save(ff);
-			} catch (IOException e) {
+			} catch(IOException e) {
 				e.printStackTrace();
 			}
 		});
@@ -211,8 +211,8 @@ public class DeathData {
 		String iSTR;
 		String name;
 		String playTime;
-		for (User user: immortals) {
-			if (i == TOP_LIMIT + 1) {
+		for(User user: immortals) {
+			if(i == TOP_LIMIT+1) {
 				break;
 			}
 			iSTR = String.valueOf(i);
@@ -233,11 +233,11 @@ public class DeathData {
 		String iSTR;
 		String name;
 		String deathRate;
-		for (User user: lowDeathRate) {
+		for(User user: lowDeathRate) {
 			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
-			deathRate = converter.deathPerTime((double) user.deaths / (double) user.playTimeTicks);
+			deathRate = converter.deathPerTime((double) user.deaths/(double) user.playTimeTicks);
 			String s = Lang.DEATHRATE_STATS.toString();
 			s = s.replace("%0", iSTR);
 			s = s.replace("%1", name);
@@ -252,11 +252,11 @@ public class DeathData {
 		String iSTR;
 		String name;
 		String deathRate;
-		for (User user: highDeathRate) {
+		for(User user: highDeathRate) {
 			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
-			deathRate = converter.deathPerTime((double) user.deaths / (double) user.playTimeTicks);
+			deathRate = converter.deathPerTime((double) user.deaths/(double) user.playTimeTicks);
 			String s = Lang.DEATHRATE_STATS.toString();
 			s = s.replace("%0", iSTR);
 			s = s.replace("%1", name);
@@ -272,7 +272,7 @@ public class DeathData {
 		String name;
 		String deaths;
 		String playTime;
-		for (User user: highDeaths) {
+		for(User user: highDeaths) {
 			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
@@ -294,7 +294,7 @@ public class DeathData {
 		String name;
 		String deaths;
 		String playTime;
-		for (User user: lowDeaths) {
+		for(User user: lowDeaths) {
 			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
@@ -324,29 +324,29 @@ public class DeathData {
 		}
 	}
 
-	static class compDeaths implements Comparator < User > {
+	static class compDeaths implements Comparator<User> {
 		@Override public int compare(User o1, User o2) {
-			int diff = o2.deaths - o1.deaths;
+			int diff = o2.deaths-o1.deaths;
 			int result;
-			if (diff < 0) {
+			if(diff<0) {
 				result = -1;
-			} else if (diff > 0) {
+			} else if(diff>0) {
 				result = 1;
 			} else {
-				result = o1.playTimeTicks - o2.playTimeTicks;
+				result = o1.playTimeTicks-o2.playTimeTicks;
 			}
 			return result;
 		}
 	}
 
-	static class compDeathTime implements Comparator < User > {
+	static class compDeathTime implements Comparator<User> {
 		@Override public int compare(User o1, User o2) {
-			double diff = Double.compare((double) o2.deaths / (double) o2.playTimeTicks,
-			                             (double) o1.deaths / (double) o1.playTimeTicks);
+			double diff = Double.compare((double) o2.deaths/(double) o2.playTimeTicks,
+			                             (double) o1.deaths/(double) o1.playTimeTicks);
 			int result;
-			if (diff < 0) {
+			if(diff<0) {
 				result = -1;
-			} else if (diff > 0) {
+			} else if(diff>0) {
 				result = 1;
 			} else {
 				result = 0;
@@ -355,10 +355,10 @@ public class DeathData {
 		}
 	}
 
-	static class compTime implements Comparator < User > {
+	static class compTime implements Comparator<User> {
 
 		@Override public int compare(User o1, User o2) {
-			return o2.playTimeTicks - o1.playTimeTicks;
+			return o2.playTimeTicks-o1.playTimeTicks;
 		}
 	}
 }
