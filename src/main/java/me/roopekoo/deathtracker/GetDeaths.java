@@ -7,6 +7,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
+import java.util.Objects;
+
 public class GetDeaths implements CommandExecutor {
 	private final DeathTimeConverter converter = new DeathTimeConverter();
 
@@ -20,6 +22,8 @@ public class GetDeaths implements CommandExecutor {
 					return true;
 				}
 				DeathData deathData = DeathTracker.getPlugin().get_file();
+				deathData.updateTime(Objects.requireNonNull(pl.getPlayer()));
+
 				double deaths = deathData.getDeaths(pl.getUniqueId());
 				String deathSTR = String.format("%.0f", deaths);
 
