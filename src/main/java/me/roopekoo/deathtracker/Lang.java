@@ -15,12 +15,12 @@ public enum Lang {
 	PLAYER_DEATHTIME("player-deathtime", "&e%0 &7has a death rate of &4%1 &7and dies approximately once per &a%2"),
 	TOO_MANY_PARAMS("too-many-params", "&cToo many parameters!"),
 	NOT_ENOUGH_PARAMS("not-enough-params", "&cNot enough parameters!"),
-	IMMORTAL_STATS("immortal-stats", "%0: &e%1 &7,playtime of &2%2"),
+	IMMORTAL_STATS("immortal-stats", "%0: &e%1&7, playtime of &a%2"),
 	IMMORTAL_TITLE("immortal-title", "&6&nTop 10 immortal players:"),
-	DEATHRATE_STATS("deathrate-stats", "%0: &e%1&7, deathrate of &2%2"),
+	DEATHRATE_STATS("deathrate-stats", "%0: &e%1&7, deathrate of &a%2"),
 	LOW_DEATHRATE_TITLE("low-deathrate-title", "&6&nTop 10 low-deathrate players:"),
 	HIGH_DEATHRATE_TITLE("high-deathrate-title", "&6&nTop 10 high-deathrate players:"),
-	DEATH_STATS("death-stats", "%0: &e%1, &4%2 &7deaths, playtime of &2%3"),
+	DEATH_STATS("death-stats", "%0: &e%1, &4%2 &7deaths, playtime of &a%3"),
 	LOW_DEATHS("low-deaths", "&6&nTop 10 players with low mortality:"),
 	HIGH_DEATHS("high-deaths", "&6&nTop 10 players with high mortality:");
 

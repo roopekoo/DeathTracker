@@ -50,8 +50,8 @@ public class DeathTracker extends JavaPlugin {
 			} catch(IOException e) {
 				// Send notice
 				e.printStackTrace();
-				System.out.println("[PluginName] Couldn't create language file" + ".");
-				System.out.println("[PluginName] This is a fatal error. Now disabling");
+				System.out.println(Lang.TITLE+"Couldn't create language file.");
+				System.out.println(Lang.TITLE+"This is a fatal error. Now disabling");
 				// Without it loaded, we can't send them messages
 				this.setEnabled(false);
 			}
@@ -67,9 +67,9 @@ public class DeathTracker extends JavaPlugin {
 		DeathTracker.LANG_FILE = lang;
 		try {
 			conf.save(getLangFile());
-		} catch (IOException e) {
-			System.out.println("PluginName: Failed to save lang.yml.");
-			System.out.println("PluginName: Report this stack trace to Roopekoo.");
+		} catch(IOException e) {
+			System.out.println(Lang.TITLE+"Failed to save lang.yml.");
+			System.out.println(Lang.TITLE+"Report this stack trace to Roopekoo.");
 			e.printStackTrace();
 		}
 	}
