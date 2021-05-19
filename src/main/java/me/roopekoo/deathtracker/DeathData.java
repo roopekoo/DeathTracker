@@ -461,7 +461,7 @@ public class DeathData {
 			trimTopList(highDeaths);
 		}
 		//Update lowDeaths
-		else if(user.deaths<=deathLow) {
+		if(user.deaths<=deathLow) {
 			modifyTopList(lowDeaths, user);
 			lowDeaths.sort(new compDeaths().reversed());
 			trimTopList(lowDeaths);
@@ -479,7 +479,7 @@ public class DeathData {
 			trimTopList(highDeathRate);
 		}
 		//Update lowDeathRate
-		else if(newDeathTime<=deathRateLow) {
+		if(newDeathTime<=deathRateLow) {
 			modifyTopList(lowDeathRate, user);
 			lowDeathRate.sort(new compDeathTime().reversed());
 			trimTopList(lowDeathRate);
