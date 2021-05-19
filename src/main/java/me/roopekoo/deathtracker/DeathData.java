@@ -256,6 +256,7 @@ public class DeathData {
 		String iSTR;
 		String name;
 		String playTime;
+		updateOnlinePlayers();
 		for(User user: immortals) {
 			if(i == TOP_LIMIT+1) {
 				break;
@@ -415,8 +416,10 @@ public class DeathData {
 	}
 
 	private void updateOnlinePlayers() {
+		int totalPlaytime;
 		for(Player pl: Bukkit.getServer().getOnlinePlayers()) {
-			updateTime(pl);
+			totalPlaytime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
+			updateTime(pl.getUniqueId().toString(),totalPlaytime);
 		}
 	}
 
