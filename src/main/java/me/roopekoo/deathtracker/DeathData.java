@@ -53,6 +53,7 @@ public class DeathData {
 		UUID uuid = player.getUniqueId();
 		User user = new User(uuid, 0, 0, 0);
 		playerMap.put(uuid.toString(), user);
+		immortals.add(user);
 	}
 
 	//At least template data exist on the PlayerData
