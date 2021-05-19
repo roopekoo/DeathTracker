@@ -12,22 +12,18 @@ public class DeathStats implements CommandExecutor {
 				if(args.length == 2) {
 					if(args[0].equals("deaths")) {
 						if(args[1].equals("high")) {
-							sender.sendMessage(Lang.TITLE.toString()+Lang.HIGH_DEATHS);
-							deathData.printTopDeaths(sender,false);
+							deathData.printTopDeaths(sender, false);
 						} else if(args[1].equals("low")) {
-							sender.sendMessage(Lang.TITLE.toString()+Lang.LOW_DEATHS);
-							deathData.printTopDeaths(sender,true);
+							deathData.printTopDeaths(sender, true);
 						} else {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
 							return false;
 						}
 					} else if(args[0].equals("deathrate")) {
 						if(args[1].equals("high")) {
-							sender.sendMessage(Lang.TITLE.toString()+Lang.HIGH_DEATHRATE_TITLE);
-							deathData.printTopDeathRate(sender,false);
+							deathData.printTopDeathRate(sender, false);
 						} else if(args[1].equals("low")) {
-							sender.sendMessage(Lang.TITLE.toString()+Lang.LOW_DEATHRATE_TITLE);
-							deathData.printTopDeathRate(sender,true);
+							deathData.printTopDeathRate(sender, true);
 						} else {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
 							return false;
@@ -38,7 +34,6 @@ public class DeathStats implements CommandExecutor {
 					}
 				} else if(args.length == 1) {
 					if(args[0].equals("immortals")) {
-						sender.sendMessage(Lang.TITLE.toString()+Lang.IMMORTAL_TITLE);
 						deathData.printImmortal(sender);
 					} else {
 						sender.sendMessage(Lang.TITLE.toString()+Lang.NOT_ENOUGH_PARAMS);
