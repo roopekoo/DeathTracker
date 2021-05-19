@@ -273,12 +273,17 @@ public class DeathData {
 		}
 	}
 
-	public void printLowDeathRate(CommandSender sender) {
+	public void printTopDeathRate(CommandSender sender, boolean isAsc) {
 		int i = 1;
 		String iSTR;
 		String name;
 		String deathRate;
-		for(User user: lowDeathRate) {
+		ArrayList<User> topList = highDeathRate;
+		if(isAsc) {
+			topList = lowDeathRate;
+		}
+		updateOnlinePlayers();
+		for(User user: topList) {
 			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
@@ -292,32 +297,18 @@ public class DeathData {
 		}
 	}
 
-	public void printHighDeathRate(CommandSender sender) {
-		int i = 1;
-		String iSTR;
-		String name;
-		String deathRate;
-		for(User user: highDeathRate) {
-			iSTR = String.valueOf(i);
-			name = Bukkit.getOfflinePlayer(user.uuid).getName();
-			assert name != null;
-			deathRate = converter.deathPerTime((double) user.deaths/(double) user.playTimeTicks);
-			String s = Lang.DEATHRATE_STATS.toString();
-			s = s.replace("%0", iSTR);
-			s = s.replace("%1", name);
-			s = s.replace("%2", deathRate);
-			sender.sendMessage(s);
-			i++;
-		}
-	}
-
-	public void printHighDeaths(CommandSender sender) {
+	public void printTopDeaths(CommandSender sender, boolean isAsc) {
 		int i = 1;
 		String iSTR;
 		String name;
 		String deaths;
 		String playTime;
-		for(User user: highDeaths) {
+		ArrayList<User> topList = highDeaths;
+		if(isAsc) {
+			topList = lowDeaths;
+		}
+		updateOnlinePlayers();
+		for(User user: topList) {
 			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
