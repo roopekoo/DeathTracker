@@ -2,48 +2,89 @@ package me.roopekoo.deathtracker;
 
 public class DeathTimeConverter {
 	public String deathPerTime(double deathTime) {
-		deathTime = deathTime*20;
-		if(deathTime>=1) {
-			return String.format("%.2f", deathTime)+" deaths/second";
+		String time;
+		String deathText = "death";
+		String unit;
+		if(deathTime*TicksToUnit.SECOND.value>=1) {
+			deathTime = deathTime*TicksToUnit.SECOND.value;
+			unit = "sec";
+		} else if(deathTime*TicksToUnit.MINUTE.value>=1) {
+			deathTime = deathTime*TicksToUnit.MINUTE.value;
+			unit = "min";
+		} else if(deathTime*TicksToUnit.HOUR.value>=1) {
+			deathTime = deathTime*TicksToUnit.HOUR.value;
+			unit = "hour";
+		} else if(deathTime*TicksToUnit.DAY.value>=1) {
+			deathTime = deathTime*TicksToUnit.DAY.value;
+			unit = "day";
+		} else {
+			deathTime = deathTime*TicksToUnit.YEAR.value;
+			unit = "year";
 		}
-		deathTime = deathTime*60;
-		if(deathTime>=1) {
-			return String.format("%.2f", deathTime)+" deaths/minute";
+		time = String.format("%.2f", deathTime);
+		if(time.contains(".00")) {
+			if(!time.equals("1.00")) {
+				deathText = deathText+"s";
+			}
+			time = String.valueOf(time.charAt(0));
+		} else if(time.contains(",00")) {
+			if(!time.equals("1,00")) {
+				deathText = deathText+"s";
+			}
+			time = String.valueOf(time.charAt(0));
+		} else {
+			deathText = deathText+"s";
 		}
-		deathTime = deathTime*60;
-		if(deathTime>=1) {
-			return String.format("%.2f", deathTime)+" deaths/hour";
-		}
-		deathTime = deathTime*24;
-		if(deathTime>=1) {
-			return String.format("%.2f", deathTime)+" deaths/day";
-		}
-		deathTime = deathTime*365.25;
-		return String.format("%.2f", deathTime)+" deaths/year";
+
+		deathText = Lang.valueOf(deathText.toUpperCase()).toString();
+		unit = Lang.valueOf(unit.toUpperCase()).toString();
+		return time+" "+deathText+"/"+unit;
 	}
 
 	public String playTicksToShortStr(double playTime) {
-		playTime = playTime*50;
-		if(1000>playTime) {
-			return String.format("%.2f", playTime)+" milliseconds";
+		String time;
+		String unit;
+		if(60>playTime/TicksToUnit.SECOND.value) {
+			playTime = playTime/TicksToUnit.SECOND.value;
+			unit = "sec";
+		} else if(60>playTime/TicksToUnit.MINUTE.value) {
+			playTime = playTime/TicksToUnit.MINUTE.value;
+			unit = "min";
+		} else if(24>playTime/TicksToUnit.HOUR.value) {
+			playTime = playTime/TicksToUnit.HOUR.value;
+			unit = "hour";
+		} else if(365.25>playTime/TicksToUnit.DAY.value) {
+			playTime = playTime/TicksToUnit.DAY.value;
+			unit = "day";
+		} else {
+			playTime = playTime/TicksToUnit.YEAR.value;
+			unit = "year";
 		}
-		playTime = playTime/1000;
-		if(60>playTime) {
-			return String.format("%.2f", playTime)+" seconds";
+		time = String.format("%.2f", playTime);
+		if(time.contains(".00")) {
+			if(!time.equals("1.00")) {
+				unit = unit+"s";
+			}
+			time = String.valueOf(time.charAt(0));
+		} else if(time.contains(",00")) {
+			if(!time.equals("1,00")) {
+				unit = unit+"s";
+			}
+			time = String.valueOf(time.charAt(0));
+		} else {
+			unit = unit+"s";
 		}
-		playTime = playTime/60;
-		if(60>playTime) {
-			return String.format("%.2f", playTime)+" minutes";
+		unit = Lang.valueOf(unit.toUpperCase()).toString();
+		return time+" "+unit;
+	}
+
+	private enum TicksToUnit {
+		SECOND(20), MINUTE(20*60), HOUR(20*60*60), DAY(20*60*60*24), YEAR(20*60*60*24*365.25);
+
+		public final double value;
+
+		TicksToUnit(double value) {
+			this.value = value;
 		}
-		playTime = playTime/60;
-		if(24>playTime) {
-			return String.format("%.2f", playTime)+" hours";
-		}
-		playTime = playTime/24;
-		if(365.25>playTime) {
-			return String.format("%.2f", playTime)+" days";
-		}
-		playTime = playTime/365.25;
-		return String.format("%.2f", playTime)+" years";
 	}
 }
