@@ -264,74 +264,133 @@ public class DeathData {
 	}
 
 	public void printImmortal(CommandSender sender) {
+		String playerText = Lang.PLAYERS.toString();
+		int n = immortals.size();
+		if(n<2) {
+			if(n == 0) {
+				sender.sendMessage(Lang.TITLE.toString()+Lang.EMPTY_TOP_LIST);
+				return;
+			}
+			// n = 1
+			else {
+				playerText = Lang.PLAYER.toString();
+			}
+		}
 		int i = 1;
-		String iSTR;
 		String name;
 		String playTime;
+
+		String s = Lang.TITLE.toString()+Lang.IMMORTAL_TITLE;
+		s = s.replace("{n}", String.valueOf(n));
+		s = s.replace("{player(s)}", playerText);
+		sender.sendMessage(s);
+
 		updateOnlinePlayers();
 		for(User user: immortals) {
 			if(i == TOP_LIMIT+1) {
 				break;
 			}
-			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
 			playTime = converter.playTicksToShortStr(user.playTimeTicks);
-			String s = Lang.IMMORTAL_STATS.toString();
-			s = s.replace("%0", iSTR);
-			s = s.replace("%1", name);
-			s = s.replace("%2", playTime);
+			s = Lang.IMMORTAL_STATS.toString();
+			s = s.replace("{i}", String.valueOf(i));
+			s = s.replace("{pl}", name);
+			s = s.replace("{pt}", playTime);
 			sender.sendMessage(s);
 			i++;
 		}
 	}
 
 	public void printTopDeathRate(CommandSender sender, boolean isAsc) {
-		int i = 1;
-		String iSTR;
-		String name;
-		String deathRate;
+		String playerText = Lang.PLAYER.toString();
+		String statsTitle = Lang.HIGH_DEATHRATE_TITLE.toString();
 		ArrayList<User> topList = highDeathRate;
 		if(isAsc) {
 			topList = lowDeathRate;
+			statsTitle = Lang.LOW_DEATHRATE_TITLE.toString();
 		}
+		int n = topList.size();
+		if(n<2) {
+			if(n == 0) {
+				sender.sendMessage(Lang.TITLE.toString()+Lang.EMPTY_TOP_LIST);
+				return;
+			}
+			// n = 1
+			else {
+				playerText = Lang.PLAYER.toString();
+			}
+		}
+		String s = Lang.TITLE+statsTitle;
+		s = s.replace("{n}", String.valueOf(n));
+		s = s.replace("{player(s)}", playerText);
+		sender.sendMessage(s);
+
+		int i = 1;
+		String name;
+		String deathRate;
+
 		updateOnlinePlayers();
 		for(User user: topList) {
-			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
 			deathRate = converter.deathPerTime((double) user.deaths/(double) user.playTimeTicks);
-			String s = Lang.DEATHRATE_STATS.toString();
-			s = s.replace("%0", iSTR);
-			s = s.replace("%1", name);
-			s = s.replace("%2", deathRate);
+			s = Lang.DEATHRATE_STATS.toString();
+			s = s.replace("{i}", String.valueOf(i));
+			s = s.replace("{pl}", name);
+			s = s.replace("{dr}", deathRate);
 			sender.sendMessage(s);
 			i++;
 		}
 	}
 
 	public void printTopDeaths(CommandSender sender, boolean isAsc) {
-		int i = 1;
-		String iSTR;
-		String name;
-		String deaths;
-		String playTime;
+		String playerText = Lang.PLAYERS.toString();
+		String statsTitle = Lang.HIGH_DEATHS.toString();
 		ArrayList<User> topList = highDeaths;
 		if(isAsc) {
 			topList = lowDeaths;
+			statsTitle = Lang.LOW_DEATHS.toString();
 		}
+		int n = topList.size();
+		if(n<2) {
+			if(n == 0) {
+				sender.sendMessage(Lang.TITLE.toString()+Lang.EMPTY_TOP_LIST);
+				return;
+			}
+			// n = 1
+			else {
+				playerText = Lang.PLAYER.toString();
+			}
+		}
+
+		int i = 1;
+		String name;
+		String deaths;
+		String playTime;
+		String deathsText;
+
+		String s = Lang.TITLE+statsTitle;
+		s = s.replace("{n}", String.valueOf(n));
+		s = s.replace("{player(s)}", playerText);
+		sender.sendMessage(s);
+
 		updateOnlinePlayers();
 		for(User user: topList) {
-			iSTR = String.valueOf(i);
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
 			deaths = String.valueOf(user.deaths);
+			deathsText = Lang.DEATHS.toString();
+			if(user.deaths == 1) {
+				deathsText = Lang.DEATH.toString();
+			}
 			playTime = converter.playTicksToShortStr(user.playTimeTicks);
-			String s = Lang.DEATH_STATS.toString();
-			s = s.replace("%0", iSTR);
-			s = s.replace("%1", name);
-			s = s.replace("%2", deaths);
-			s = s.replace("%3", playTime);
+			s = Lang.DEATH_STATS.toString();
+			s = s.replace("{i}", String.valueOf(i));
+			s = s.replace("{pl}", name);
+			s = s.replace("{n}", deaths);
+			s = s.replace("{death(s)}", deathsText);
+			s = s.replace("{pt}", playTime);
 			sender.sendMessage(s);
 			i++;
 		}
