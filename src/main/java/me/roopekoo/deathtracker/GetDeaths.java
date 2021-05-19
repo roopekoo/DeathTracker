@@ -21,6 +21,8 @@ public class GetDeaths implements CommandExecutor {
 					sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PLAYER);
 					return true;
 				}
+				name = pl.getName();
+				assert name != null;
 				DeathData deathData = DeathTracker.getPlugin().get_file();
 				deathData.updateTime(Objects.requireNonNull(pl.getPlayer()));
 
