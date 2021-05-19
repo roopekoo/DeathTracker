@@ -25,8 +25,12 @@ public class GetDeaths implements CommandExecutor {
 				int totalPlayTime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
 				deathData.updateTime(pl.getUniqueId().toString(), totalPlayTime);
 
-				double deaths = deathData.getDeaths(pl.getUniqueId());
-				String deathSTR = String.format("%.0f", deaths);
+				double deathValue = deathData.getDeaths(pl.getUniqueId());
+				String deathText = Lang.DEATHS.toString();
+				if(deathValue == 1){
+					deathText = Lang.DEATH.toString();
+				}
+				String deathSTR = String.format("%.0f", deathValue);
 
 				double playtime = totalPlayTime-deathData.getResetTime(pl.getUniqueId());
 				String playTimeSTR = converter.playTicksToShortStr(playtime);
@@ -34,35 +38,37 @@ public class GetDeaths implements CommandExecutor {
 				if(args.length == 1) {
 					// getdeaths [player]
 					String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
-					s = s.replace("%0", name);
-					s = s.replace("%1", deathSTR);
-					s = s.replace("%2", playTimeSTR);
+					s = s.replace("{pl}", name);
+					s = s.replace("{n}", deathSTR);
+					s = s.replace("{death(s)}",deathText);
+					s = s.replace("{pt}", playTimeSTR);
 					sender.sendMessage(s);
 				} else if(args.length == 2) {
 					// getdeaths [player] time
 					if(args[1].equals("time")) {
-						double deathTime = deaths/playtime;
-						double timeDeath = playtime/deaths;
+						double deathTime = deathValue/playtime;
+						double timeDeath = playtime/deathValue;
 						if(playtime == 0) {
 							deathTime = 0;
 						}
-						if(deaths == 0) {
+						if(deathValue == 0) {
 							timeDeath = 0;
 						}
 						String deathPerTime = converter.deathPerTime(deathTime);
 						String timePerDeath = converter.playTicksToShortStr(timeDeath);
 						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHTIME;
-						s = s.replace("%0", name);
-						s = s.replace("%1", deathPerTime);
-						s = s.replace("%2", timePerDeath);
+						s = s.replace("{pl}", name);
+						s = s.replace("{dr}", deathPerTime);
+						s = s.replace("{t}", timePerDeath);
 						sender.sendMessage(s);
 					}
 					// getdeaths [player] deaths
 					else if(args[1].equals("deaths")) {
 						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
-						s = s.replace("%0", name);
-						s = s.replace("%1", deathSTR);
-						s = s.replace("%2", playTimeSTR);
+						s = s.replace("{pl}", name);
+						s = s.replace("{n}", deathSTR);
+						s = s.replace("{death(s)}",deathText);
+						s = s.replace("{pt}", playTimeSTR);
 						sender.sendMessage(s);
 					} else {
 						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
