@@ -67,24 +67,10 @@ public class DeathData {
 		user.playTimeTicks = playTime-resetTime;
 	}
 
-	public void updateTime(Player player) {
-		String uuid = player.getUniqueId().toString();
+	public void updateTime(String uuid, int totalPlaytime) {
 		User user = playerMap.get(uuid);
-		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		int resetTime = user.resetTime;
-
-		user.playTimeTicks = playTime-resetTime;
-		updateArraysTime(user);
-	}
-
-	public void updateTimeOffline(OfflinePlayer player) {
-		String uuid = player.getUniqueId().toString();
-		User user = playerMap.get(uuid);
-
-		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
-		int resetTime = user.resetTime;
-
-		user.playTimeTicks = playTime-resetTime;
+		user.playTimeTicks = totalPlaytime-resetTime;
 		updateArraysTime(user);
 	}
 
