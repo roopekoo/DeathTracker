@@ -2,16 +2,31 @@ title-name: '&4[&8Death&7Tracker&4]: '
 no-perm: '&cYou not have permission to do that!'
 invalid-player: '&cThat player has never played here!'
 invalid-param: '&cInvalid parameter!'
-player-deaths: '&e%0 &7has died &4%1 &7times with a playtime of &a%2'
-player-deathtime: '&e%0 &7has a death rate of &4%1 &7and dies approximately once per
-  &a%2'
 too-many-params: '&cToo many parameters!'
 not-enough-params: '&cNot enough parameters!'
-immortal-stats: '%0: &e%1&7, playtime of &a%2'
-immortal-title: '&6&nTop 10 immortal players:'
-deathrate-stats: '%0: &e%1&7, deathrate of &a%2'
-low-deathrate-title: '&6&nTop 10 low-deathrate players:'
-high-deathrate-title: '&6&nTop 10 high-deathrate players:'
-death-stats: '%0: &e%1, &4%2 &7deaths, playtime of &a%3'
-low-deaths: '&6&nTop 10 players with low mortality:'
-high-deaths: '&6&nTop 10 players with high mortality:'
+empty-top-list: '&cThis top 10 list is empty!'
+player-deaths: '&e{pl} &7has &4{n} &7{death(s)} with a playtime of &a{pt}'
+player-deathtime: '&e{pl} &7has a death rate of &4{dr} &7and dies approximately once
+  per &a{t}'
+immortal-title: '&6&nTop {n} immortal {player(s)}:&r'
+immortal-stats: '{i}: &e{pl}&7, playtime of &a{pt}'
+deathrate-stats: '{i}: &e{pl}&7, deathrate of &a{dr}'
+low-deathrate-title: '&6&nTop {n} low-deathrate {player(s)}:&r'
+high-deathrate-title: '&6&nTop {n} high-deathrate {player(s)}:&r'
+death-stats: '{i}: &e{pl}, &4{n} &7{death(s)}, playtime of &a{pt}'
+low-deaths: '&6&nTop {n} {player(s)} with low mortality:&r'
+high-deaths: '&6&nTop {n} {player(s)} with high mortality:&r'
+player: player
+players: players
+death: death
+deaths: deaths
+sec: second
+secs: seconds
+min: minute
+mins: minutes
+hour: hour
+hours: hours
+day: day
+days: days
+year: year
+years: years
