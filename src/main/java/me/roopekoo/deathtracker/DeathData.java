@@ -180,6 +180,8 @@ public class DeathData {
 		if(containerSize<limit) {
 			limit = containerSize;
 		}
+		//Clear old data
+		zeroDeaths.clear();
 		//Top 10 zero deaths
 		for(int i = 0; i<containerSize; i++) {
 			if(i == limit) {
@@ -198,6 +200,7 @@ public class DeathData {
 		if(containerSize<limit) {
 			limit = containerSize;
 		}
+		highDeaths.clear();
 		//Top 10 most deaths
 		mortals.sort(new compDeaths());
 		for(int i = 0; i<containerSize; i++) {
@@ -207,6 +210,7 @@ public class DeathData {
 			user = mortals.get(i);
 			highDeaths.add(user);
 		}
+		lowDeaths.clear();
 		//Top 10 least deaths (>0)
 		for(int i = containerSize-1; i>=0; i--) {
 			if(i == containerSize-limit-1) {
@@ -216,6 +220,7 @@ public class DeathData {
 			lowDeaths.add(user);
 		}
 
+		highDeathRate.clear();
 		//greatest death density
 		mortals.sort(new compDeathTime());
 		for(int i = 0; i<containerSize; i++) {
@@ -225,6 +230,7 @@ public class DeathData {
 			user = mortals.get(i);
 			highDeathRate.add(user);
 		}
+		lowDeathRate.clear();
 		//Smallest death density
 		for(int i = containerSize-1; i>=0; i--) {
 			if(i == containerSize-limit-1) {
