@@ -95,6 +95,9 @@ public class DeathData {
 		if(user.deaths == 0) {
 			int lastPlaytime = 0;
 			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
+			if(hasUser(immortals, user.uuid.toString()) == null) {
+				immortals.add(user);
+			}
 			if(user.playTimeTicks>=lastPlaytime) {
 				modifyTopList(zeroDeaths, user);
 				zeroDeaths.sort(new compTime());
