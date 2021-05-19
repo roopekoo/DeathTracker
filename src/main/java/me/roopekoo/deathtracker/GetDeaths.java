@@ -24,12 +24,13 @@ public class GetDeaths implements CommandExecutor {
 				name = pl.getName();
 				assert name != null;
 				DeathData deathData = DeathTracker.getPlugin().get_file();
-				deathData.updateTime(Objects.requireNonNull(pl.getPlayer()));
+				int totalPlayTime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
+				deathData.updateTime(pl.getUniqueId().toString(),totalPlayTime);
 
 				double deaths = deathData.getDeaths(pl.getUniqueId());
 				String deathSTR = String.format("%.0f", deaths);
 
-				double playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-deathData.getResetTime(pl.getUniqueId());
+				double playtime = totalPlayTime-deathData.getResetTime(pl.getUniqueId());
 				String playTimeSTR = converter.playTicksToShortStr(playtime);
 
 				if(args.length == 1) {
