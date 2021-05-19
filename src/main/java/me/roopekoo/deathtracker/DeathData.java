@@ -167,6 +167,9 @@ public class DeathData {
 	}
 
 	private void sortImmortals() {
+		User user;
+		int limit = TOP_LIMIT;
+		int containerSize = immortals.size();
 		immortals.sort(new compTime());
 		if(containerSize<limit) {
 			limit = containerSize;
