@@ -31,6 +31,8 @@ public class DeathData {
 
 	//Top 10 lists
 	int TOP_LIMIT = 10;
+	int INFINITY_I = Integer.MAX_VALUE;
+	double INFINITY_D = Double.MAX_VALUE;
 
 	public DeathData() {
 		File f = new File(BASEDIR);
@@ -340,25 +342,99 @@ public class DeathData {
 		}
 	}
 
-	public void printLowDeaths(CommandSender sender) {
-		int i = 1;
-		String iSTR;
-		String name;
-		String deaths;
-		String playTime;
-		for(User user: lowDeaths) {
-			iSTR = String.valueOf(i);
-			name = Bukkit.getOfflinePlayer(user.uuid).getName();
-			assert name != null;
-			deaths = String.valueOf(user.deaths);
-			playTime = converter.playTicksToShortStr(user.playTimeTicks);
-			String s = Lang.DEATH_STATS.toString();
-			s = s.replace("%0", iSTR);
-			s = s.replace("%1", name);
-			s = s.replace("%2", deaths);
-			s = s.replace("%3", playTime);
-			sender.sendMessage(s);
-			i++;
+	private User hasUser(ArrayList<User> topList, String uuid) {
+		User target = null;
+		for(User user: topList) {
+			if(uuid.equals(user.uuid.toString())) {
+				target = user;
+				break;
+			}
+		}
+		return target;
+	}
+
+	private void modifyTopList(ArrayList<User> topList, User user) {
+		User targetUser = hasUser(topList, user.uuid.toString());
+		if(targetUser != null) {
+			targetUser.deaths = user.deaths;
+			targetUser.playTimeTicks = user.playTimeTicks;
+		} else {
+			topList.add(user);
+		}
+	}
+
+	private void trimTopList(ArrayList<User> topList) {
+		if(topList.size()>TOP_LIMIT) {
+			topList.remove(highDeaths.size()-1);
+		}
+	}
+
+	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
+		if(!topList.isEmpty()) {
+			initValue = topList.get(topList.size()-1).playTimeTicks;
+		}
+		return initValue;
+	}
+
+	private int getLastDeathValue(ArrayList<User> topList, int initValue) {
+		if(topList.size() != 0) {
+			initValue = topList.get(topList.size()-1).deaths;
+		}
+		return initValue;
+	}
+
+	private double getLastDeathRateValue(ArrayList<User> topList, double initValue) {
+		if(topList.size() != 0) {
+			User highUser = topList.get(topList.size()-1);
+			initValue = (double) highUser.deaths/(double) highUser.playTimeTicks;
+		}
+		return initValue;
+	}
+
+	private void updateMortalTopLists(User user) {
+		double newDeathTime = (double) user.deaths/(double) user.playTimeTicks;
+
+		//Last death values
+		int deathHigh = 0;
+		int deathLow = INFINITY_I;
+		deathHigh = getLastDeathValue(highDeaths, deathHigh);
+		deathLow = getLastDeathValue(lowDeaths, deathLow);
+
+		//Update highDeaths
+		if(user.deaths>=deathHigh) {
+			modifyTopList(highDeaths, user);
+			highDeaths.sort(new compDeaths());
+			trimTopList(highDeaths);
+		}
+		//Update lowDeaths
+		else if(user.deaths<=deathLow) {
+			modifyTopList(lowDeaths, user);
+			lowDeaths.sort(new compDeaths().reversed());
+			trimTopList(lowDeaths);
+		}
+
+		double deathRateHigh = 0;
+		double deathRateLow = INFINITY_D;
+		deathRateHigh = getLastDeathRateValue(highDeathRate, deathRateHigh);
+		deathRateLow = getLastDeathRateValue(lowDeathRate, deathRateLow);
+
+		//Update highDeathRate
+		if(newDeathTime>=deathRateHigh) {
+			modifyTopList(highDeathRate, user);
+			highDeathRate.sort(new compDeathTime());
+			trimTopList(highDeathRate);
+		}
+		//Update lowDeathRate
+		else if(newDeathTime<=deathRateLow) {
+			modifyTopList(lowDeathRate, user);
+			lowDeathRate.sort(new compDeathTime().reversed());
+			trimTopList(lowDeathRate);
+		}
+	}
+
+	private void updateOnlinePlayers() {
+		for(Player pl: Bukkit.getServer().getOnlinePlayers()) {
+			updateTime(pl);
 		}
 	}
 
