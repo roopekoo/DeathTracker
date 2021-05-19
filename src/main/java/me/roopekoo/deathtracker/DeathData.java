@@ -23,6 +23,7 @@ public class DeathData {
 
 	private final ArrayList<User> mortals = new ArrayList<>();
 	private final ArrayList<User> immortals = new ArrayList<>();
+	private final ArrayList<User> zeroDeaths = new ArrayList<>();
 	private final ArrayList<User> highDeaths = new ArrayList<>();
 	private final ArrayList<User> lowDeaths = new ArrayList<>();
 	private final ArrayList<User> highDeathRate = new ArrayList<>();
@@ -70,6 +71,45 @@ public class DeathData {
 		int resetTime = user.resetTime;
 
 		user.playTimeTicks = playTime-resetTime;
+		updateArraysTime(user);
+	}
+
+	public void updateTimeOffline(OfflinePlayer player) {
+		String uuid = player.getUniqueId().toString();
+		User user = playerMap.get(uuid);
+
+		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+		int resetTime = user.resetTime;
+
+		user.playTimeTicks = playTime-resetTime;
+		updateArraysTime(user);
+	}
+
+	private void updateArraysDeath(User user) {
+		if(user.deaths == 1) {
+			immortals.remove(hasUser(immortals, user.uuid.toString()));
+			if(hasUser(zeroDeaths, user.uuid.toString()) != null) {
+				sortImmortals();
+			}
+			mortals.add(user);
+			sortMortals();
+		} else {
+			updateMortalTopLists(user);
+		}
+	}
+
+	private void updateArraysTime(User user) {
+		if(user.deaths == 0) {
+			int lastPlaytime = 0;
+			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
+			if(user.playTimeTicks>=lastPlaytime) {
+				modifyTopList(zeroDeaths, user);
+				zeroDeaths.sort(new compTime());
+				trimTopList(zeroDeaths);
+			}
+		} else {
+			updateMortalTopLists(user);
+		}
 	}
 
 	public boolean noPlayerInYML(UUID uuid) {
@@ -138,6 +178,18 @@ public class DeathData {
 
 	private void sortImmortals() {
 		immortals.sort(new compTime());
+		if(containerSize<limit) {
+			limit = containerSize;
+		}
+		//Top 10 zero deaths
+		for(int i = 0; i<containerSize; i++) {
+			if(i == limit) {
+				break;
+			}
+			user = immortals.get(i);
+			zeroDeaths.add(user);
+		}
+
 	}
 
 	private void sortMortals() {
