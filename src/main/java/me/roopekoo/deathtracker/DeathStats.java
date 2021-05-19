@@ -13,10 +13,10 @@ public class DeathStats implements CommandExecutor {
 					if(args[0].equals("deaths")) {
 						if(args[1].equals("high")) {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.HIGH_DEATHS);
-							deathData.printHighDeaths(sender);
+							deathData.printTopDeaths(sender,false);
 						} else if(args[1].equals("low")) {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.LOW_DEATHS);
-							deathData.printLowDeaths(sender);
+							deathData.printTopDeaths(sender,true);
 						} else {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
 							return false;
@@ -24,10 +24,10 @@ public class DeathStats implements CommandExecutor {
 					} else if(args[0].equals("deathrate")) {
 						if(args[1].equals("high")) {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.HIGH_DEATHRATE_TITLE);
-							deathData.printHighDeathRate(sender);
+							deathData.printTopDeathRate(sender,false);
 						} else if(args[1].equals("low")) {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.LOW_DEATHRATE_TITLE);
-							deathData.printLowDeathRate(sender);
+							deathData.printTopDeathRate(sender,true);
 						} else {
 							sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
 							return false;
