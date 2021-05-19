@@ -60,11 +60,12 @@ public class DeathData {
 	public void addDeath(Player player) {
 		String uuid = player.getUniqueId().toString();
 		User user = playerMap.get(uuid);
+
 		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		int resetTime = user.resetTime;
-
-		user.deaths++;
 		user.playTimeTicks = playTime-resetTime;
+		user.deaths++;
+		updateArraysDeath(user);
 	}
 
 	public void updateTime(String uuid, int totalPlaytime) {
