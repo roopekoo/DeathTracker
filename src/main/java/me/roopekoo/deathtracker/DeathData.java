@@ -72,7 +72,10 @@ public class DeathData {
 		User user = playerMap.get(uuid);
 		int resetTime = user.resetTime;
 		user.playTimeTicks = totalPlaytime-resetTime;
-		updateArraysTime(user);
+		// player is online
+		if(Bukkit.getPlayer(user.uuid) != null) {
+			updateArraysTime(user);
+		}
 	}
 
 	private void updateArraysDeath(User user) {
