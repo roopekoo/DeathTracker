@@ -450,6 +450,10 @@ public class DeathData {
 			}
 			return result;
 		}
+
+		@Override public Comparator<User> reversed() {
+			return Comparator.super.reversed();
+		}
 	}
 
 	static class compDeathTime implements Comparator<User> {
@@ -466,12 +470,20 @@ public class DeathData {
 			}
 			return result;
 		}
+
+		@Override public Comparator<User> reversed() {
+			return Comparator.super.reversed();
+		}
 	}
 
 	static class compTime implements Comparator<User> {
 
 		@Override public int compare(User o1, User o2) {
 			return o2.playTimeTicks-o1.playTimeTicks;
+		}
+
+		@Override public Comparator<User> reversed() {
+			return Comparator.super.reversed();
 		}
 	}
 }
