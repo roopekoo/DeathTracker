@@ -23,13 +23,13 @@ public class DeathHandler implements Listener {
 			deathData.addNewPlayer(p);
 		} else {
 			int totalPlayTime = p.getStatistic(Statistic.PLAY_ONE_MINUTE);
-			deathData.updateTime(p.getUniqueId().toString(),totalPlayTime);
+			deathData.updateTime(p.getUniqueId().toString(), totalPlayTime);
 		}
 	}
 
 	@EventHandler public void on(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		int totalPlayTime = p.getStatistic(Statistic.PLAY_ONE_MINUTE);
-		deathData.updateTime(p.getUniqueId().toString(),totalPlayTime);
+		deathData.updateTime(p.getUniqueId().toString(), totalPlayTime);
 	}
 }

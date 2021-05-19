@@ -490,7 +490,7 @@ public class DeathData {
 		int totalPlaytime;
 		for(Player pl: Bukkit.getServer().getOnlinePlayers()) {
 			totalPlaytime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
-			updateTime(pl.getUniqueId().toString(),totalPlaytime);
+			updateTime(pl.getUniqueId().toString(), totalPlaytime);
 		}
 	}
 
