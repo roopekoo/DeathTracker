@@ -217,6 +217,104 @@ public class DeathData {
 		}
 	}
 
+	public void printTopDeaths(CommandSender sender, boolean isAsc) {
+		String playerText = Lang.PLAYERS.toString();
+		String statsTitle = Lang.HIGH_DEATHS.toString();
+		ArrayList<User> topList = highDeaths;
+		if(isAsc) {
+			topList = lowDeaths;
+			statsTitle = Lang.LOW_DEATHS.toString();
+		}
+		int n = topList.size();
+		if(n<2) {
+			if(n == 0) {
+				sender.sendMessage(Lang.TITLE.toString()+Lang.EMPTY_TOP_LIST);
+				return;
+			}
+			// n = 1
+			else {
+				playerText = Lang.PLAYER.toString();
+			}
+		}
+
+		int i = 1;
+		String name;
+		String deaths;
+		String playTime;
+		String deathsText;
+
+		String s = Lang.TITLE+statsTitle;
+		s = s.replace("{n}", String.valueOf(n));
+		s = s.replace("{player(s)}", playerText);
+		sender.sendMessage(s);
+
+		updateOnlinePlayers();
+		for(User user: topList) {
+			name = Bukkit.getOfflinePlayer(user.uuid).getName();
+			assert name != null;
+			deaths = String.valueOf(user.deaths);
+			deathsText = Lang.DEATHS.toString();
+			if(user.deaths == 1) {
+				deathsText = Lang.DEATH.toString();
+			}
+			playTime = converter.playTicksToShortStr(user.playTimeTicks);
+			s = Lang.DEATH_STATS.toString();
+			s = s.replace("{i}", String.valueOf(i));
+			s = s.replace("{pl}", name);
+			s = s.replace("{n}", deaths);
+			s = s.replace("{death(s)}", deathsText);
+			s = s.replace("{pt}", playTime);
+			sender.sendMessage(s);
+			i++;
+		}
+	}
+
+	private User hasUser(ArrayList<User> topList, String uuid) {
+		User target = null;
+		for(User user: topList) {
+			if(uuid.equals(user.uuid.toString())) {
+				target = user;
+				break;
+			}
+		}
+		return target;
+	}
+
+	private void modifyTopList(ArrayList<User> topList, User user) {
+		User targetUser = hasUser(topList, user.uuid.toString());
+		if(targetUser != null) {
+			targetUser.deaths = user.deaths;
+			targetUser.playTimeTicks = user.playTimeTicks;
+		} else {
+			topList.add(user);
+		}
+	}
+
+	private void trimTopList(ArrayList<User> topList) {
+		if(topList.size()>TOP_LIMIT) {
+			topList.remove(highDeaths.size()-1);
+		}
+	}
+
+	public int getDeaths(UUID player) {
+		return playerMap.get(player.toString()).deaths;
+	}
+
+	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
+		if(!topList.isEmpty()) {
+			initValue = topList.get(topList.size()-1).playTimeTicks;
+		}
+		return initValue;
+	}
+
+	private void updateOnlinePlayers() {
+		int totalPlaytime;
+		for(Player pl: Bukkit.getServer().getOnlinePlayers()) {
+			totalPlaytime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
+			updateTime(pl.getUniqueId().toString(), totalPlaytime);
+		}
+	}
+
 	public void printTopDeathRate(CommandSender sender, boolean isAsc) {
 		String playerText = Lang.PLAYER.toString();
 		String statsTitle = Lang.HIGH_DEATHRATE_TITLE.toString();
@@ -394,104 +492,6 @@ public class DeathData {
 		User user = new User(uuid, 0, 0, 0);
 		playerMap.put(uuid.toString(), user);
 		immortals.add(user);
-	}
-
-	public void printTopDeaths(CommandSender sender, boolean isAsc) {
-		String playerText = Lang.PLAYERS.toString();
-		String statsTitle = Lang.HIGH_DEATHS.toString();
-		ArrayList<User> topList = highDeaths;
-		if(isAsc) {
-			topList = lowDeaths;
-			statsTitle = Lang.LOW_DEATHS.toString();
-		}
-		int n = topList.size();
-		if(n<2) {
-			if(n == 0) {
-				sender.sendMessage(Lang.TITLE.toString()+Lang.EMPTY_TOP_LIST);
-				return;
-			}
-			// n = 1
-			else {
-				playerText = Lang.PLAYER.toString();
-			}
-		}
-
-		int i = 1;
-		String name;
-		String deaths;
-		String playTime;
-		String deathsText;
-
-		String s = Lang.TITLE+statsTitle;
-		s = s.replace("{n}", String.valueOf(n));
-		s = s.replace("{player(s)}", playerText);
-		sender.sendMessage(s);
-
-		updateOnlinePlayers();
-		for(User user: topList) {
-			name = Bukkit.getOfflinePlayer(user.uuid).getName();
-			assert name != null;
-			deaths = String.valueOf(user.deaths);
-			deathsText = Lang.DEATHS.toString();
-			if(user.deaths == 1) {
-				deathsText = Lang.DEATH.toString();
-			}
-			playTime = converter.playTicksToShortStr(user.playTimeTicks);
-			s = Lang.DEATH_STATS.toString();
-			s = s.replace("{i}", String.valueOf(i));
-			s = s.replace("{pl}", name);
-			s = s.replace("{n}", deaths);
-			s = s.replace("{death(s)}", deathsText);
-			s = s.replace("{pt}", playTime);
-			sender.sendMessage(s);
-			i++;
-		}
-	}
-
-	private User hasUser(ArrayList<User> topList, String uuid) {
-		User target = null;
-		for(User user: topList) {
-			if(uuid.equals(user.uuid.toString())) {
-				target = user;
-				break;
-			}
-		}
-		return target;
-	}
-
-	private void modifyTopList(ArrayList<User> topList, User user) {
-		User targetUser = hasUser(topList, user.uuid.toString());
-		if(targetUser != null) {
-			targetUser.deaths = user.deaths;
-			targetUser.playTimeTicks = user.playTimeTicks;
-		} else {
-			topList.add(user);
-		}
-	}
-
-	private void trimTopList(ArrayList<User> topList) {
-		if(topList.size()>TOP_LIMIT) {
-			topList.remove(highDeaths.size()-1);
-		}
-	}
-
-	public int getDeaths(UUID player) {
-		return playerMap.get(player.toString()).deaths;
-	}
-
-	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
-		if(!topList.isEmpty()) {
-			initValue = topList.get(topList.size()-1).playTimeTicks;
-		}
-		return initValue;
-	}
-
-	private void updateOnlinePlayers() {
-		int totalPlaytime;
-		for(Player pl: Bukkit.getServer().getOnlinePlayers()) {
-			totalPlaytime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
-			updateTime(pl.getUniqueId().toString(), totalPlaytime);
-		}
 	}
 
 	static final class User {
