@@ -49,13 +49,6 @@ public class DeathData {
 		deathData = YamlConfiguration.loadConfiguration(ff);
 	}
 
-	public void addNewPlayer(Player player) {
-		UUID uuid = player.getUniqueId();
-		User user = new User(uuid, 0, 0, 0);
-		playerMap.put(uuid.toString(), user);
-		immortals.add(user);
-	}
-
 	public boolean noPlayerInYML(UUID uuid) {
 		ConfigurationSection sec = deathData.getConfigurationSection("players");
 		return sec == null || !sec.contains(uuid.toString());
@@ -443,6 +436,13 @@ public class DeathData {
 			initValue = (double) highUser.deaths/(double) highUser.playTimeTicks;
 		}
 		return initValue;
+	}
+
+	public void addNewPlayer(Player player) {
+		UUID uuid = player.getUniqueId();
+		User user = new User(uuid, 0, 0, 0);
+		playerMap.put(uuid.toString(), user);
+		immortals.add(user);
 	}
 
 	private void updateMortalTopLists(User user) {
