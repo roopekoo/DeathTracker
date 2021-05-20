@@ -30,10 +30,6 @@ public class DeathTracker extends JavaPlugin {
 		loadLang();
 	}
 
-	@Override public void onDisable() {
-		DeathTracker.getPlugin().get_file().writeAllToDeathData();
-	}
-
 	public DeathData get_file() {
 		return dataFile;
 	}
@@ -80,5 +76,9 @@ public class DeathTracker extends JavaPlugin {
 	 */
 	public File getLangFile() {
 		return LANG_FILE;
+	}
+
+	@Override public void onDisable() {
+		DeathTracker.getPlugin().get_file().writeAllToDeathData();
 	}
 }
