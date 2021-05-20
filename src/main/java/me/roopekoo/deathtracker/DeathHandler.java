@@ -17,6 +17,12 @@ public class DeathHandler implements Listener {
 		deathData.addDeath(player);
 	}
 
+	@EventHandler public void on(PlayerQuitEvent e) {
+		Player p = e.getPlayer();
+		int totalPlayTime = p.getStatistic(Statistic.PLAY_ONE_MINUTE);
+		deathData.updateTime(p.getUniqueId().toString(), totalPlayTime);
+	}
+
 	@EventHandler public void on(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		if(!p.hasPlayedBefore()) {
@@ -25,11 +31,5 @@ public class DeathHandler implements Listener {
 			int totalPlayTime = p.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			deathData.updateTime(p.getUniqueId().toString(), totalPlayTime);
 		}
-	}
-
-	@EventHandler public void on(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		int totalPlayTime = p.getStatistic(Statistic.PLAY_ONE_MINUTE);
-		deathData.updateTime(p.getUniqueId().toString(), totalPlayTime);
 	}
 }
