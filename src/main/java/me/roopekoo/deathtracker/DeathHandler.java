@@ -33,3 +33,4 @@ public class DeathHandler implements Listener {
 		}
 	}
 }
+

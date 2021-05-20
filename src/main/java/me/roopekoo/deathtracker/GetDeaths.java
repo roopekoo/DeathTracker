@@ -88,3 +88,4 @@ public class GetDeaths implements CommandExecutor {
 		return true;
 	}
 }
+

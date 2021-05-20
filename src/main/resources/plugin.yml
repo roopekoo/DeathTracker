@@ -11,3 +11,4 @@ commands:
   deathstats:
     description: 'Get statistics of the top 10 most and least mortal player'
     usage: /<command> [deaths | deathrate | immortals] (high | low)
+

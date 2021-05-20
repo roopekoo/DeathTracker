@@ -53,3 +53,4 @@ public class DeathStats implements CommandExecutor {
 		return true;
 	}
 }
+
