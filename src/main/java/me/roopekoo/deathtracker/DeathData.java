@@ -217,6 +217,37 @@ public class DeathData {
 		}
 	}
 
+	private User hasUser(ArrayList<User> topList, String uuid) {
+		User target = null;
+		for(User user: topList) {
+			if(uuid.equals(user.uuid.toString())) {
+				target = user;
+				break;
+			}
+		}
+		return target;
+	}
+
+	private void modifyTopList(ArrayList<User> topList, User user) {
+		User targetUser = hasUser(topList, user.uuid.toString());
+		if(targetUser != null) {
+			targetUser.deaths = user.deaths;
+			targetUser.playTimeTicks = user.playTimeTicks;
+		} else {
+			topList.add(user);
+		}
+	}
+
+	private void trimTopList(ArrayList<User> topList) {
+		if(topList.size()>TOP_LIMIT) {
+			topList.remove(highDeaths.size()-1);
+		}
+	}
+
+	public int getDeaths(UUID player) {
+		return playerMap.get(player.toString()).deaths;
+	}
+
 	public void printTopDeaths(CommandSender sender, boolean isAsc) {
 		String playerText = Lang.PLAYERS.toString();
 		String statsTitle = Lang.HIGH_DEATHS.toString();
@@ -267,37 +298,6 @@ public class DeathData {
 			sender.sendMessage(s);
 			i++;
 		}
-	}
-
-	private User hasUser(ArrayList<User> topList, String uuid) {
-		User target = null;
-		for(User user: topList) {
-			if(uuid.equals(user.uuid.toString())) {
-				target = user;
-				break;
-			}
-		}
-		return target;
-	}
-
-	private void modifyTopList(ArrayList<User> topList, User user) {
-		User targetUser = hasUser(topList, user.uuid.toString());
-		if(targetUser != null) {
-			targetUser.deaths = user.deaths;
-			targetUser.playTimeTicks = user.playTimeTicks;
-		} else {
-			topList.add(user);
-		}
-	}
-
-	private void trimTopList(ArrayList<User> topList) {
-		if(topList.size()>TOP_LIMIT) {
-			topList.remove(highDeaths.size()-1);
-		}
-	}
-
-	public int getDeaths(UUID player) {
-		return playerMap.get(player.toString()).deaths;
 	}
 
 	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
