@@ -13,10 +13,10 @@ public enum Lang {
 	INVALID_PARAM("invalid-param", "&cInvalid parameter!"),
 	TOO_MANY_PARAMS("too-many-params", "&cToo many parameters!"),
 	NOT_ENOUGH_PARAMS("not-enough-params", "&cNot enough parameters!"),
-	EMPTY_TOP_LIST("empty-top-list","&cThis top 10 list is empty!"),
+	EMPTY_TOP_LIST("empty-top-list", "&cThis top 10 list is empty!"),
 	PLAYER_DEATHS("player-deaths", "&e{pl} &7has &4{n} &7{death(s)} with a playtime of &a{pt}"),
-	PLAYER_DEATHTIME("player-deathtime", "&e{pl} &7has a death rate of &4{dr} &7and dies approximately once per " +
-	                                     "&a{t}"),
+	PLAYER_DEATHTIME("player-deathtime",
+	                 "&e{pl} &7has a death rate of &4{dr} &7and dies approximately once per "+"&a{t}"),
 	IMMORTAL_TITLE("immortal-title", "&6&nTop {n} immortal {player(s)}:&r"),
 	IMMORTAL_STATS("immortal-stats", "{i}: &e{pl}&7, playtime of &a{pt}"),
 	DEATHRATE_STATS("deathrate-stats", "{i}: &e{pl}&7, deathrate of &a{dr}"),
@@ -25,8 +25,8 @@ public enum Lang {
 	DEATH_STATS("death-stats", "{i}: &e{pl}, &4{n} &7{death(s)}, playtime of &a{pt}"),
 	LOW_DEATHS("low-deaths", "&6&nTop {n} {player(s)} with low mortality:&r"),
 	HIGH_DEATHS("high-deaths", "&6&nTop {n} {player(s)} with high mortality:&r"),
-	PLAYER("player","player"),
-	PLAYERS("players","players"),
+	PLAYER("player", "player"),
+	PLAYERS("players", "players"),
 	DEATH("death", "death"),
 	DEATHS("deaths", "deaths"),
 	SEC("sec", "second"),
@@ -57,20 +57,20 @@ public enum Lang {
 	}
 
 	/**
-	 Get the path to the string.
-	 @return The path to the string.
-	 */
-	public String getPath() {
-		return this.path;
-	}
-
-	/**
 	 Set the {@code YamlConfiguration} to use.
 	 @param config
 	 The config to set.
 	 */
 	public static void setFile(YamlConfiguration config) {
 		LANG = config;
+	}
+
+	/**
+	 Get the path to the string.
+	 @return The path to the string.
+	 */
+	public String getPath() {
+		return this.path;
 	}
 
 	@Override public String toString() {

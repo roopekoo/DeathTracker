@@ -27,7 +27,7 @@ public class GetDeaths implements CommandExecutor {
 
 				double deathValue = deathData.getDeaths(pl.getUniqueId());
 				String deathText = Lang.DEATHS.toString();
-				if(deathValue == 1){
+				if(deathValue == 1) {
 					deathText = Lang.DEATH.toString();
 				}
 				String deathSTR = String.format("%.0f", deathValue);
@@ -40,7 +40,7 @@ public class GetDeaths implements CommandExecutor {
 					String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
 					s = s.replace("{pl}", name);
 					s = s.replace("{n}", deathSTR);
-					s = s.replace("{death(s)}",deathText);
+					s = s.replace("{death(s)}", deathText);
 					s = s.replace("{pt}", playTimeSTR);
 					sender.sendMessage(s);
 				} else if(args.length == 2) {
@@ -67,7 +67,7 @@ public class GetDeaths implements CommandExecutor {
 						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
 						s = s.replace("{pl}", name);
 						s = s.replace("{n}", deathSTR);
-						s = s.replace("{death(s)}",deathText);
+						s = s.replace("{death(s)}", deathText);
 						s = s.replace("{pt}", playTimeSTR);
 						sender.sendMessage(s);
 					} else {
