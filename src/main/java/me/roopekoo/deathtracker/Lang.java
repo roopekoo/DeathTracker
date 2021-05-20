@@ -86,4 +86,3 @@ public enum Lang {
 		return this.def;
 	}
 }
-

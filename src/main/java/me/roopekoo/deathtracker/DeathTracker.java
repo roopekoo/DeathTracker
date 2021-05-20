@@ -82,4 +82,3 @@ public class DeathTracker extends JavaPlugin {
 		DeathTracker.getPlugin().get_file().writeAllToDeathData();
 	}
 }
-
