@@ -54,16 +54,16 @@ public class DeathData {
 		return sec == null || !sec.contains(uuid.toString());
 	}
 
+	public int getResetTimeYML(UUID player) {
+		return deathData.getInt("players."+player+".resetTime");
+	}
+
 	public int getDeathsYML(UUID player) {
 		return deathData.getInt("players."+player+".deaths");
 	}
 
 	public int getResetTime(UUID player) {
 		return playerMap.get(player.toString()).resetTime;
-	}
-
-	public int getResetTimeYML(UUID player) {
-		return deathData.getInt("players."+player+".resetTime");
 	}
 
 	//Adds all missing players to the deathData.yml file
