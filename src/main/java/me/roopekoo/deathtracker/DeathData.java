@@ -81,16 +81,6 @@ public class DeathData {
 		}
 	}
 
-	public void updateTime(String uuid, int totalPlaytime) {
-		User user = playerMap.get(uuid);
-		int resetTime = user.resetTime;
-		user.playTimeTicks = totalPlaytime-resetTime;
-		// player is online
-		if(Bukkit.getPlayer(user.uuid) != null) {
-			updateArraysTime(user);
-		}
-	}
-
 	public boolean noPlayerInYML(UUID uuid) {
 		ConfigurationSection sec = deathData.getConfigurationSection("players");
 		return sec == null || !sec.contains(uuid.toString());
@@ -295,6 +285,16 @@ public class DeathData {
 			s = s.replace("{pt}", playTime);
 			sender.sendMessage(s);
 			i++;
+		}
+	}
+
+	public void updateTime(String uuid, int totalPlaytime) {
+		User user = playerMap.get(uuid);
+		int resetTime = user.resetTime;
+		user.playTimeTicks = totalPlaytime-resetTime;
+		// player is online
+		if(Bukkit.getPlayer(user.uuid) != null) {
+			updateArraysTime(user);
 		}
 	}
 
