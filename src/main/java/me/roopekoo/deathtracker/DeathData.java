@@ -56,31 +56,6 @@ public class DeathData {
 		immortals.add(user);
 	}
 
-	//At least template data exist on the PlayerData
-	public void addDeath(Player player) {
-		String uuid = player.getUniqueId().toString();
-		User user = playerMap.get(uuid);
-
-		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
-		int resetTime = user.resetTime;
-		user.playTimeTicks = playTime-resetTime;
-		user.deaths++;
-		updateArraysDeath(user);
-	}
-
-	private void updateArraysDeath(User user) {
-		if(user.deaths == 1) {
-			immortals.remove(hasUser(immortals, user.uuid.toString()));
-			if(hasUser(zeroDeaths, user.uuid.toString()) != null) {
-				sortImmortals();
-			}
-			mortals.add(user);
-			sortMortals();
-		} else {
-			updateMortalTopLists(user);
-		}
-	}
-
 	public boolean noPlayerInYML(UUID uuid) {
 		ConfigurationSection sec = deathData.getConfigurationSection("players");
 		return sec == null || !sec.contains(uuid.toString());
@@ -295,6 +270,31 @@ public class DeathData {
 		// player is online
 		if(Bukkit.getPlayer(user.uuid) != null) {
 			updateArraysTime(user);
+		}
+	}
+
+	//At least template data exist on the PlayerData
+	public void addDeath(Player player) {
+		String uuid = player.getUniqueId().toString();
+		User user = playerMap.get(uuid);
+
+		int playTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+		int resetTime = user.resetTime;
+		user.playTimeTicks = playTime-resetTime;
+		user.deaths++;
+		updateArraysDeath(user);
+	}
+
+	private void updateArraysDeath(User user) {
+		if(user.deaths == 1) {
+			immortals.remove(hasUser(immortals, user.uuid.toString()));
+			if(hasUser(zeroDeaths, user.uuid.toString()) != null) {
+				sortImmortals();
+			}
+			mortals.add(user);
+			sortMortals();
+		} else {
+			updateMortalTopLists(user);
 		}
 	}
 
