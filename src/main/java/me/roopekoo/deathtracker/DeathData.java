@@ -291,6 +291,47 @@ public class DeathData {
 		}
 	}
 
+	private void updateMortalTopLists(User user) {
+		double newDeathTime = (double) user.deaths/(double) user.playTimeTicks;
+
+		//Last death values
+		int deathHigh = 0;
+		int deathLow = INFINITY_I;
+		deathHigh = getLastDeathValue(highDeaths, deathHigh);
+		deathLow = getLastDeathValue(lowDeaths, deathLow);
+
+		//Update highDeaths
+		if(user.deaths>=deathHigh) {
+			modifyTopList(highDeaths, user);
+			highDeaths.sort(new compDeaths());
+			trimTopList(highDeaths);
+		}
+		//Update lowDeaths
+		if(user.deaths<=deathLow) {
+			modifyTopList(lowDeaths, user);
+			lowDeaths.sort(new compDeaths().reversed());
+			trimTopList(lowDeaths);
+		}
+
+		double deathRateHigh = 0;
+		double deathRateLow = INFINITY_D;
+		deathRateHigh = getLastDeathRateValue(highDeathRate, deathRateHigh);
+		deathRateLow = getLastDeathRateValue(lowDeathRate, deathRateLow);
+
+		//Update highDeathRate
+		if(newDeathTime>=deathRateHigh) {
+			modifyTopList(highDeathRate, user);
+			highDeathRate.sort(new compDeathTime());
+			trimTopList(highDeathRate);
+		}
+		//Update lowDeathRate
+		if(newDeathTime<=deathRateLow) {
+			modifyTopList(lowDeathRate, user);
+			lowDeathRate.sort(new compDeathTime().reversed());
+			trimTopList(lowDeathRate);
+		}
+	}
+
 	public void printTopDeathRate(CommandSender sender, boolean isAsc) {
 		String playerText = Lang.PLAYER.toString();
 		String statsTitle = Lang.HIGH_DEATHRATE_TITLE.toString();
@@ -443,47 +484,6 @@ public class DeathData {
 		User user = new User(uuid, 0, 0, 0);
 		playerMap.put(uuid.toString(), user);
 		immortals.add(user);
-	}
-
-	private void updateMortalTopLists(User user) {
-		double newDeathTime = (double) user.deaths/(double) user.playTimeTicks;
-
-		//Last death values
-		int deathHigh = 0;
-		int deathLow = INFINITY_I;
-		deathHigh = getLastDeathValue(highDeaths, deathHigh);
-		deathLow = getLastDeathValue(lowDeaths, deathLow);
-
-		//Update highDeaths
-		if(user.deaths>=deathHigh) {
-			modifyTopList(highDeaths, user);
-			highDeaths.sort(new compDeaths());
-			trimTopList(highDeaths);
-		}
-		//Update lowDeaths
-		if(user.deaths<=deathLow) {
-			modifyTopList(lowDeaths, user);
-			lowDeaths.sort(new compDeaths().reversed());
-			trimTopList(lowDeaths);
-		}
-
-		double deathRateHigh = 0;
-		double deathRateLow = INFINITY_D;
-		deathRateHigh = getLastDeathRateValue(highDeathRate, deathRateHigh);
-		deathRateLow = getLastDeathRateValue(lowDeathRate, deathRateLow);
-
-		//Update highDeathRate
-		if(newDeathTime>=deathRateHigh) {
-			modifyTopList(highDeathRate, user);
-			highDeathRate.sort(new compDeathTime());
-			trimTopList(highDeathRate);
-		}
-		//Update lowDeathRate
-		if(newDeathTime<=deathRateLow) {
-			modifyTopList(lowDeathRate, user);
-			lowDeathRate.sort(new compDeathTime().reversed());
-			trimTopList(lowDeathRate);
-		}
 	}
 
 	private void updateOnlinePlayers() {
