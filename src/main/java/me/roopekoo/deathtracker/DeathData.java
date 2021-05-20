@@ -117,10 +117,6 @@ public class DeathData {
 		return deathData.getInt("players."+player+".deaths");
 	}
 
-	public int getDeaths(UUID player) {
-		return playerMap.get(player.toString()).deaths;
-	}
-
 	public int getResetTime(UUID player) {
 		return playerMap.get(player.toString()).resetTime;
 	}
@@ -421,6 +417,10 @@ public class DeathData {
 		if(topList.size()>TOP_LIMIT) {
 			topList.remove(highDeaths.size()-1);
 		}
+	}
+
+	public int getDeaths(UUID player) {
+		return playerMap.get(player.toString()).deaths;
 	}
 
 	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
