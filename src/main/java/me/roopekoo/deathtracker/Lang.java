@@ -57,6 +57,14 @@ public enum Lang {
 	}
 
 	/**
+	 Get the path to the string.
+	 @return The path to the string.
+	 */
+	public String getPath() {
+		return this.path;
+	}
+
+	/**
 	 Set the {@code YamlConfiguration} to use.
 	 @param config
 	 The config to set.
@@ -76,13 +84,5 @@ public enum Lang {
 	 */
 	public String getDefault() {
 		return this.def;
-	}
-
-	/**
-	 Get the path to the string.
-	 @return The path to the string.
-	 */
-	public String getPath() {
-		return this.path;
 	}
 }
