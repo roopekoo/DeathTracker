@@ -91,23 +91,6 @@ public class DeathData {
 		}
 	}
 
-	private void updateArraysTime(User user) {
-		if(user.deaths == 0) {
-			int lastPlaytime = 0;
-			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
-			if(hasUser(immortals, user.uuid.toString()) == null) {
-				immortals.add(user);
-			}
-			if(user.playTimeTicks>=lastPlaytime) {
-				modifyTopList(zeroDeaths, user);
-				zeroDeaths.sort(new compTime());
-				trimTopList(zeroDeaths);
-			}
-		} else {
-			updateMortalTopLists(user);
-		}
-	}
-
 	public boolean noPlayerInYML(UUID uuid) {
 		ConfigurationSection sec = deathData.getConfigurationSection("players");
 		return sec == null || !sec.contains(uuid.toString());
@@ -247,6 +230,23 @@ public class DeathData {
 			deathData.set("players."+uuid+".deaths", user.deaths);
 		}
 		writeFile();
+	}
+
+	private void updateArraysTime(User user) {
+		if(user.deaths == 0) {
+			int lastPlaytime = 0;
+			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
+			if(hasUser(immortals, user.uuid.toString()) == null) {
+				immortals.add(user);
+			}
+			if(user.playTimeTicks>=lastPlaytime) {
+				modifyTopList(zeroDeaths, user);
+				zeroDeaths.sort(new compTime());
+				trimTopList(zeroDeaths);
+			}
+		} else {
+			updateMortalTopLists(user);
+		}
 	}
 
 	private void writeFile() {
