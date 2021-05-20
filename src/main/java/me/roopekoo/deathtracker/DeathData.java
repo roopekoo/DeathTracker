@@ -228,16 +228,6 @@ public class DeathData {
 		return target;
 	}
 
-	private void modifyTopList(ArrayList<User> topList, User user) {
-		User targetUser = hasUser(topList, user.uuid.toString());
-		if(targetUser != null) {
-			targetUser.deaths = user.deaths;
-			targetUser.playTimeTicks = user.playTimeTicks;
-		} else {
-			topList.add(user);
-		}
-	}
-
 	private void trimTopList(ArrayList<User> topList) {
 		if(topList.size()>TOP_LIMIT) {
 			topList.remove(highDeaths.size()-1);
@@ -297,6 +287,16 @@ public class DeathData {
 			s = s.replace("{pt}", playTime);
 			sender.sendMessage(s);
 			i++;
+		}
+	}
+
+	private void modifyTopList(ArrayList<User> topList, User user) {
+		User targetUser = hasUser(topList, user.uuid.toString());
+		if(targetUser != null) {
+			targetUser.deaths = user.deaths;
+			targetUser.playTimeTicks = user.playTimeTicks;
+		} else {
+			topList.add(user);
 		}
 	}
 
