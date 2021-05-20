@@ -68,16 +68,6 @@ public class DeathData {
 		updateArraysDeath(user);
 	}
 
-	public void updateTime(String uuid, int totalPlaytime) {
-		User user = playerMap.get(uuid);
-		int resetTime = user.resetTime;
-		user.playTimeTicks = totalPlaytime-resetTime;
-		// player is online
-		if(Bukkit.getPlayer(user.uuid) != null) {
-			updateArraysTime(user);
-		}
-	}
-
 	private void updateArraysDeath(User user) {
 		if(user.deaths == 1) {
 			immortals.remove(hasUser(immortals, user.uuid.toString()));
@@ -88,6 +78,16 @@ public class DeathData {
 			sortMortals();
 		} else {
 			updateMortalTopLists(user);
+		}
+	}
+
+	public void updateTime(String uuid, int totalPlaytime) {
+		User user = playerMap.get(uuid);
+		int resetTime = user.resetTime;
+		user.playTimeTicks = totalPlaytime-resetTime;
+		// player is online
+		if(Bukkit.getPlayer(user.uuid) != null) {
+			updateArraysTime(user);
 		}
 	}
 
