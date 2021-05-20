@@ -332,6 +332,28 @@ public class DeathData {
 		}
 	}
 
+	private int getLastDeathValue(ArrayList<User> topList, int initValue) {
+		if(topList.size() != 0) {
+			initValue = topList.get(topList.size()-1).deaths;
+		}
+		return initValue;
+	}
+
+	private double getLastDeathRateValue(ArrayList<User> topList, double initValue) {
+		if(topList.size() != 0) {
+			User highUser = topList.get(topList.size()-1);
+			initValue = (double) highUser.deaths/(double) highUser.playTimeTicks;
+		}
+		return initValue;
+	}
+
+	public void addNewPlayer(Player player) {
+		UUID uuid = player.getUniqueId();
+		User user = new User(uuid, 0, 0, 0);
+		playerMap.put(uuid.toString(), user);
+		immortals.add(user);
+	}
+
 	public void printTopDeathRate(CommandSender sender, boolean isAsc) {
 		String playerText = Lang.PLAYER.toString();
 		String statsTitle = Lang.HIGH_DEATHRATE_TITLE.toString();
@@ -462,28 +484,6 @@ public class DeathData {
 			initValue = topList.get(topList.size()-1).playTimeTicks;
 		}
 		return initValue;
-	}
-
-	private int getLastDeathValue(ArrayList<User> topList, int initValue) {
-		if(topList.size() != 0) {
-			initValue = topList.get(topList.size()-1).deaths;
-		}
-		return initValue;
-	}
-
-	private double getLastDeathRateValue(ArrayList<User> topList, double initValue) {
-		if(topList.size() != 0) {
-			User highUser = topList.get(topList.size()-1);
-			initValue = (double) highUser.deaths/(double) highUser.playTimeTicks;
-		}
-		return initValue;
-	}
-
-	public void addNewPlayer(Player player) {
-		UUID uuid = player.getUniqueId();
-		User user = new User(uuid, 0, 0, 0);
-		playerMap.put(uuid.toString(), user);
-		immortals.add(user);
 	}
 
 	private void updateOnlinePlayers() {
