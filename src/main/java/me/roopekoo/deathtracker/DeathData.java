@@ -217,6 +217,13 @@ public class DeathData {
 		}
 	}
 
+	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
+		if(!topList.isEmpty()) {
+			initValue = topList.get(topList.size()-1).playTimeTicks;
+		}
+		return initValue;
+	}
+
 	private void modifyTopList(ArrayList<User> topList, User user) {
 		User targetUser = hasUser(topList, user.uuid.toString());
 		if(targetUser != null) {
@@ -298,13 +305,6 @@ public class DeathData {
 			sender.sendMessage(s);
 			i++;
 		}
-	}
-
-	private int getLastPlayTimeValue(ArrayList<User> topList, int initValue) {
-		if(!topList.isEmpty()) {
-			initValue = topList.get(topList.size()-1).playTimeTicks;
-		}
-		return initValue;
 	}
 
 	private void updateOnlinePlayers() {
