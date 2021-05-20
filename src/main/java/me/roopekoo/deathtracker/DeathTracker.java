@@ -15,10 +15,6 @@ public class DeathTracker extends JavaPlugin {
 	private static DeathTracker plugin = null;
 	private final DeathData dataFile = new DeathData();
 
-	public static DeathTracker getPlugin() {
-		return plugin;
-	}
-
 	@Override public void onEnable() {
 		plugin = this;
 		Objects.requireNonNull(plugin.getCommand("getdeaths")).setExecutor(new GetDeaths());
@@ -28,6 +24,10 @@ public class DeathTracker extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new DeathHandler(), plugin);
 		DeathTracker.getPlugin().get_file().initializePlayerData();
 		loadLang();
+	}
+
+	public static DeathTracker getPlugin() {
+		return plugin;
 	}
 
 	public DeathData get_file() {
