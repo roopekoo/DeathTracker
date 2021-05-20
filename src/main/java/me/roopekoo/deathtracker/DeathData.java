@@ -49,19 +49,6 @@ public class DeathData {
 		deathData = YamlConfiguration.loadConfiguration(ff);
 	}
 
-	public boolean noPlayerInYML(UUID uuid) {
-		ConfigurationSection sec = deathData.getConfigurationSection("players");
-		return sec == null || !sec.contains(uuid.toString());
-	}
-
-	public int getResetTimeYML(UUID player) {
-		return deathData.getInt("players."+player+".resetTime");
-	}
-
-	public int getDeathsYML(UUID player) {
-		return deathData.getInt("players."+player+".deaths");
-	}
-
 	public int getResetTime(UUID player) {
 		return playerMap.get(player.toString()).resetTime;
 	}
@@ -100,13 +87,25 @@ public class DeathData {
 					mortals.add(user);
 				}
 			}
-
 		}
 		//Try to save the changes
 		writeFile();
 		System.out.println("Offline players death/playtime updated");
 		sortImmortals();
 		sortMortals();
+	}
+
+	public boolean noPlayerInYML(UUID uuid) {
+		ConfigurationSection sec = deathData.getConfigurationSection("players");
+		return sec == null || !sec.contains(uuid.toString());
+	}
+
+	public int getResetTimeYML(UUID player) {
+		return deathData.getInt("players."+player+".resetTime");
+	}
+
+	public int getDeathsYML(UUID player) {
+		return deathData.getInt("players."+player+".deaths");
 	}
 
 	private void writeFile() {
