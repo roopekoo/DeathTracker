@@ -109,6 +109,16 @@ public class DeathData {
 		sortMortals();
 	}
 
+	private void writeFile() {
+		ForkJoinPool.commonPool().submit(()->{
+			try {
+				deathData.save(ff);
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		});
+	}
+
 	private void sortImmortals() {
 		User user;
 		int limit = TOP_LIMIT;
@@ -205,16 +215,6 @@ public class DeathData {
 		} else {
 			updateMortalTopLists(user);
 		}
-	}
-
-	private void writeFile() {
-		ForkJoinPool.commonPool().submit(()->{
-			try {
-				deathData.save(ff);
-			} catch(IOException e) {
-				e.printStackTrace();
-			}
-		});
 	}
 
 	public void printImmortal(CommandSender sender) {
