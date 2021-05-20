@@ -49,10 +49,6 @@ public class DeathData {
 		deathData = YamlConfiguration.loadConfiguration(ff);
 	}
 
-	public int getResetTime(UUID player) {
-		return playerMap.get(player.toString()).resetTime;
-	}
-
 	//Adds all missing players to the deathData.yml file
 	public void initializePlayerData() {
 		int deaths = 0;
@@ -222,6 +218,11 @@ public class DeathData {
 		}
 		return initValue;
 	}
+
+	public int getResetTime(UUID player) {
+		return playerMap.get(player.toString()).resetTime;
+	}
+
 
 	private void modifyTopList(ArrayList<User> topList, User user) {
 		User targetUser = hasUser(topList, user.uuid.toString());
