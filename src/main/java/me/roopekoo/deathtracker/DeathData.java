@@ -250,7 +250,7 @@ public class DeathData {
 
 	private void trimTopList(ArrayList<User> topList) {
 		if(topList.size()>TOP_LIMIT) {
-			topList.remove(highDeaths.size()-1);
+			topList.remove(topList.size()-1);
 		}
 	}
 
