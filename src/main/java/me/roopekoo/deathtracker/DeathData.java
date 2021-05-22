@@ -199,10 +199,12 @@ public class DeathData {
 		if(user.deaths == 0) {
 			int lastPlaytime = 0;
 			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
+			//Player is not yet in immortals list->add
 			if(hasUser(immortals, user.uuid.toString()) == null) {
 				immortals.add(user);
 			}
-			if(user.playTimeTicks>=lastPlaytime) {
+			//Last value of zeroDeaths is smaller than user's playtime
+			if(user.playTimeTicks>lastPlaytime) {
 				modifyTopList(zeroDeaths, user);
 				zeroDeaths.sort(new compTime());
 				trimTopList(zeroDeaths);
@@ -226,6 +228,7 @@ public class DeathData {
 
 	private void modifyTopList(ArrayList<User> topList, User user) {
 		User targetUser = hasUser(topList, user.uuid.toString());
+		// targetUser found->update deaths and playtime
 		if(targetUser != null) {
 			targetUser.deaths = user.deaths;
 			targetUser.playTimeTicks = user.playTimeTicks;
