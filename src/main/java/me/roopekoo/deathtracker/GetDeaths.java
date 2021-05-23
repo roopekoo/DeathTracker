@@ -23,7 +23,7 @@ public class GetDeaths implements CommandExecutor {
 				assert name != null;
 				DeathData deathData = DeathTracker.getPlugin().get_file();
 				int totalPlayTime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
-				deathData.updateTime(pl.getUniqueId().toString(), totalPlayTime);
+				deathData.updateTime(pl.getUniqueId().toString(), totalPlayTime, false);
 
 				double deathValue = deathData.getDeaths(pl.getUniqueId());
 				String deathText = Lang.DEATHS.toString();

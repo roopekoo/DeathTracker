@@ -314,7 +314,7 @@ public class DeathData {
 		int totalPlaytime;
 		for(Player pl: Bukkit.getServer().getOnlinePlayers()) {
 			totalPlaytime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
-			updateTime(pl.getUniqueId().toString(), totalPlaytime);
+			updateTime(pl.getUniqueId().toString(), totalPlaytime, true);
 		}
 	}
 
@@ -399,12 +399,12 @@ public class DeathData {
 		}
 	}
 
-	public void updateTime(String uuid, int totalPlaytime) {
+	public void updateTime(String uuid, int totalPlaytime, boolean forceUpdate) {
 		User user = playerMap.get(uuid);
 		int resetTime = user.resetTime;
 		user.playTimeTicks = totalPlaytime-resetTime;
 		// player is online
-		if(Bukkit.getPlayer(user.uuid) != null) {
+		if(forceUpdate || Bukkit.getPlayer(user.uuid) != null) {
 			updateArraysTime(user);
 		}
 	}
