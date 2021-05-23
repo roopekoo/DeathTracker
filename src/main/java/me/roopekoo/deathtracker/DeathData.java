@@ -362,7 +362,7 @@ public class DeathData {
 
 	public void printImmortal(CommandSender sender) {
 		String playerText = Lang.PLAYERS.toString();
-		int n = immortals.size();
+		int n = zeroDeaths.size();
 		if(n<2) {
 			if(n == 0) {
 				sender.sendMessage(Lang.TITLE.toString()+Lang.EMPTY_TOP_LIST);
