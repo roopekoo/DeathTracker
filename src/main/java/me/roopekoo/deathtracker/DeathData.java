@@ -383,7 +383,7 @@ public class DeathData {
 		sender.sendMessage(s);
 
 		updateOnlinePlayers();
-		for(User user: immortals) {
+		for(User user: zeroDeaths) {
 			if(i == TOP_LIMIT+1) {
 				break;
 			}
