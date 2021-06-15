@@ -200,10 +200,6 @@ public class DeathData {
 		if(user.deaths == 0) {
 			int lastPlaytime = 0;
 			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
-			//Player is not yet in immortals list->add
-			if(hasUser(immortals, user.uuid.toString()) == null) {
-				immortals.add(user);
-			}
 			//Last value of zeroDeaths is smaller than user's playtime
 			if(user.playTimeTicks>lastPlaytime) {
 				editList(zeroDeaths, user);
