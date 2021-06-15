@@ -278,6 +278,8 @@ public class DeathData {
 		String s;
 
 		updateOnlinePlayers();
+		reorderTopList(topList);
+
 		for(User user: topList) {
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
@@ -326,6 +328,20 @@ public class DeathData {
 		}
 	}
 
+	private void reorderTopList(ArrayList<User> topList) {
+		if(highDeaths.equals(topList)) {
+			highDeaths.sort(new compDeaths());
+		} else if(lowDeaths.equals(topList)) {
+			lowDeaths.sort(new compDeaths().reversed());
+		} else if(highDeathRate.equals(topList)) {
+			highDeathRate.sort(new compDeathTime());
+		} else if(lowDeathRate.equals(topList)) {
+			highDeathRate.sort(new compDeathTime().reversed());
+		} else {
+			zeroDeaths.sort(new compTime());
+		}
+	}
+
 	public void printTopDeathRate(CommandSender sender, boolean isAsc) {
 		String statsTitle = Lang.HIGH_DEATHRATE_TITLE.toString();
 		ArrayList<User> topList = highDeathRate;
@@ -341,6 +357,7 @@ public class DeathData {
 		String s;
 
 		updateOnlinePlayers();
+		reorderTopList(topList);
 		for(User user: topList) {
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
@@ -363,6 +380,7 @@ public class DeathData {
 		String s;
 
 		updateOnlinePlayers();
+		reorderTopList(zeroDeaths);
 		for(User user: zeroDeaths) {
 			name = Bukkit.getOfflinePlayer(user.uuid).getName();
 			assert name != null;
