@@ -196,6 +196,7 @@ public class DeathData {
 	}
 
 	private void updateArraysTime(User user) {
+		//update immortals list
 		if(user.deaths == 0) {
 			int lastPlaytime = 0;
 			lastPlaytime = getLastPlayTimeValue(zeroDeaths, lastPlaytime);
@@ -209,7 +210,9 @@ public class DeathData {
 				zeroDeaths.sort(new compTime());
 				trimTopList(zeroDeaths);
 			}
-		} else {
+		}
+		//update mortals list
+		else {
 			updateMortalTopLists(user);
 		}
 	}
