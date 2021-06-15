@@ -206,9 +206,7 @@ public class DeathData {
 			}
 			//Last value of zeroDeaths is smaller than user's playtime
 			if(user.playTimeTicks>lastPlaytime) {
-				modifyTopList(zeroDeaths, user);
-				zeroDeaths.sort(new compTime());
-				trimTopList(zeroDeaths);
+				editList(zeroDeaths, user);
 			}
 		}
 		//update mortals list
@@ -222,6 +220,12 @@ public class DeathData {
 			initValue = topList.get(topList.size()-1).playTimeTicks;
 		}
 		return initValue;
+	}
+
+	private void editList(ArrayList<User> topList, User user) {
+		modifyTopList(topList, user);
+		reorderTopList(topList);
+		trimTopList(topList);
 	}
 
 	public int getResetTime(UUID player) {
@@ -448,15 +452,11 @@ public class DeathData {
 
 		//Update highDeaths
 		if(user.deaths>=deathHigh) {
-			modifyTopList(highDeaths, user);
-			highDeaths.sort(new compDeaths());
-			trimTopList(highDeaths);
+			editList(highDeaths, user);
 		}
 		//Update lowDeaths
 		if(user.deaths<=deathLow) {
-			modifyTopList(lowDeaths, user);
-			lowDeaths.sort(new compDeaths().reversed());
-			trimTopList(lowDeaths);
+			editList(lowDeaths, user);
 		}
 
 		double deathRateHigh = 0;
@@ -466,15 +466,11 @@ public class DeathData {
 
 		//Update highDeathRate
 		if(newDeathTime>=deathRateHigh) {
-			modifyTopList(highDeathRate, user);
-			highDeathRate.sort(new compDeathTime());
-			trimTopList(highDeathRate);
+			editList(highDeathRate, user);
 		}
 		//Update lowDeathRate
 		if(newDeathTime<=deathRateLow) {
-			modifyTopList(lowDeathRate, user);
-			lowDeathRate.sort(new compDeathTime().reversed());
-			trimTopList(lowDeathRate);
+			editList(lowDeathRate, user);
 		}
 	}
 
