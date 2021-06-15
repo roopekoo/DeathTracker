@@ -1,5 +1,7 @@
-package me.roopekoo.deathtracker;
+package me.roopekoo.deathtracker.events;
 
+import me.roopekoo.deathtracker.DeathData;
+import me.roopekoo.deathtracker.DeathTracker;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -1,4 +1,4 @@
-package me.roopekoo.deathtracker;
+package me.roopekoo.deathtracker.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

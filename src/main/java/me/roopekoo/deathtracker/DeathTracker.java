@@ -1,5 +1,9 @@
 package me.roopekoo.deathtracker;
 
+import me.roopekoo.deathtracker.commands.DeathStats;
+import me.roopekoo.deathtracker.commands.GetDeaths;
+import me.roopekoo.deathtracker.commands.TabCompletion;
+import me.roopekoo.deathtracker.events.DeathHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;

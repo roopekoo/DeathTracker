@@ -1,5 +1,8 @@
-package me.roopekoo.deathtracker;
+package me.roopekoo.deathtracker.commands;
 
+import me.roopekoo.deathtracker.DeathData;
+import me.roopekoo.deathtracker.DeathTracker;
+import me.roopekoo.deathtracker.Lang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

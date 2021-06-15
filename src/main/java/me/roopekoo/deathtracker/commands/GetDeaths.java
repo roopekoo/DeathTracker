@@ -1,5 +1,9 @@
-package me.roopekoo.deathtracker;
+package me.roopekoo.deathtracker.commands;
 
+import me.roopekoo.deathtracker.DeathData;
+import me.roopekoo.deathtracker.DeathTimeConverter;
+import me.roopekoo.deathtracker.DeathTracker;
+import me.roopekoo.deathtracker.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
