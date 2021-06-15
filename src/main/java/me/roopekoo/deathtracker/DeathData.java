@@ -263,11 +263,11 @@ public class DeathData {
 
 	public void printTopDeaths(CommandSender sender, boolean isAsc) {
 		String playerText = Lang.PLAYERS.toString();
-		String statsTitle = Lang.HIGH_DEATHS.toString();
+		String statsTitle = Lang.HIGH_DEATHS_TITLE.toString();
 		ArrayList<User> topList = highDeaths;
 		if(isAsc) {
 			topList = lowDeaths;
-			statsTitle = Lang.LOW_DEATHS.toString();
+			statsTitle = Lang.LOW_DEATHS_TITLE.toString();
 		}
 		int n = topList.size();
 		if(n<2) {
