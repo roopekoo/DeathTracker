@@ -39,7 +39,7 @@ public class DeathStats implements CommandExecutor {
 					if(args[0].equals("immortals")) {
 						deathData.printImmortal(sender);
 					} else {
-						sender.sendMessage(Lang.TITLE.toString()+Lang.NOT_ENOUGH_PARAMS);
+						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
 						return false;
 					}
 				} else {
