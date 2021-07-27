@@ -35,9 +35,7 @@ public class GetDeaths implements CommandExecutor {
 					deathText = Lang.DEATH.toString();
 				}
 				String deathSTR = String.format("%.0f", deathValue);
-
 				double playtime = totalPlayTime-deathData.getResetTime(pl.getUniqueId());
-				String playTimeSTR = converter.playTicksToShortStr(playtime);
 
 				if(args.length == 1) {
 					// getdeaths [player]
@@ -47,13 +45,13 @@ public class GetDeaths implements CommandExecutor {
 				} else if(args.length == 2) {
 					// getdeaths [player] time
 					if(args[1].equals("time")) {
-						double deathTime = deathValue/playtime;
-						double timeDeath = playtime/deathValue;
-						if(playtime == 0) {
-							deathTime = 0;
+						double deathTime = 0;
+						double timeDeath = 0;
+						if(playtime != 0) {
+							deathTime = deathValue/playtime;
 						}
-						if(deathValue == 0) {
-							timeDeath = 0;
+						if(deathValue != 0) {
+							timeDeath = playtime/deathValue;
 						}
 						String deathPerTime = converter.deathPerTime(deathTime);
 						String timePerDeath = converter.playTicksToShortStr(timeDeath);
