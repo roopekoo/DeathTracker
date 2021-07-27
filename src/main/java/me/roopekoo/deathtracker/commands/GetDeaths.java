@@ -41,11 +41,8 @@ public class GetDeaths implements CommandExecutor {
 
 				if(args.length == 1) {
 					// getdeaths [player]
-					String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
-					s = s.replace("{pl}", name);
-					s = s.replace("{n}", deathSTR);
-					s = s.replace("{death(s)}", deathText);
-					s = s.replace("{pt}", playTimeSTR);
+					String playTimeSTR = converter.playTicksToShortStr(playtime);
+					String s = combineDeathsSTR(name, deathSTR, deathText, playTimeSTR);
 					sender.sendMessage(s);
 				} else if(args.length == 2) {
 					// getdeaths [player] time
@@ -60,19 +57,13 @@ public class GetDeaths implements CommandExecutor {
 						}
 						String deathPerTime = converter.deathPerTime(deathTime);
 						String timePerDeath = converter.playTicksToShortStr(timeDeath);
-						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHTIME;
-						s = s.replace("{pl}", name);
-						s = s.replace("{dr}", deathPerTime);
-						s = s.replace("{t}", timePerDeath);
+						String s = combineTimeSTR(name, deathPerTime, timePerDeath);
 						sender.sendMessage(s);
 					}
 					// getdeaths [player] deaths
 					else if(args[1].equals("deaths")) {
-						String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
-						s = s.replace("{pl}", name);
-						s = s.replace("{n}", deathSTR);
-						s = s.replace("{death(s)}", deathText);
-						s = s.replace("{pt}", playTimeSTR);
+						String playTimeSTR = converter.playTicksToShortStr(playtime);
+						String s = combineDeathsSTR(name, deathSTR, deathText, playTimeSTR);
 						sender.sendMessage(s);
 					} else {
 						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
@@ -90,5 +81,22 @@ public class GetDeaths implements CommandExecutor {
 			sender.sendMessage(Lang.TITLE.toString()+Lang.NO_PERM);
 		}
 		return true;
+	}
+
+	private String combineDeathsSTR(String name, String deathSTR, String deathText, String playTimeSTR) {
+		String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+		s = s.replace("{pl}", name);
+		s = s.replace("{n}", deathSTR);
+		s = s.replace("{death(s)}", deathText);
+		s = s.replace("{pt}", playTimeSTR);
+		return s;
+	}
+
+	private String combineTimeSTR(String name, String deathPerTime, String timePerDeath) {
+		String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHTIME;
+		s = s.replace("{pl}", name);
+		s = s.replace("{dr}", deathPerTime);
+		s = s.replace("{t}", timePerDeath);
+		return s;
 	}
 }
