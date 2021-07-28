@@ -22,8 +22,8 @@ public class DeathTimeConverter {
 			unit = "year";
 		}
 		time = String.format("%.2f", deathTime);
-		if(time.contains(".00")) {
-			if(!time.equals("1.00")) {
+		if(time.contains(".00")|time.contains(",00")) {
+			if(!String.valueOf(time.charAt(0)).equals("1")) {
 				deathText = deathText+"s";
 			}
 			time = String.valueOf(time.charAt(0));
@@ -56,8 +56,8 @@ public class DeathTimeConverter {
 			unit = "year";
 		}
 		time = String.format("%.2f", playTime);
-		if(time.contains(".00")) {
-			if(!time.equals("1.00")) {
+		if(time.contains(".00")|time.contains(",00")) {
+			if(!String.valueOf(time.charAt(0)).equals("1")) {
 				unit = unit+"s";
 			}
 			time = String.valueOf(time.charAt(0));
