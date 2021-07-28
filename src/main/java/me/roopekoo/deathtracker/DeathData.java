@@ -23,13 +23,15 @@ public class DeathData {
 
 	private final ArrayList<User> mortals = new ArrayList<>();
 	private final ArrayList<User> immortals = new ArrayList<>();
+	//Top 10 lists
 	private final ArrayList<User> zeroDeaths = new ArrayList<>();
 	private final ArrayList<User> highDeaths = new ArrayList<>();
 	private final ArrayList<User> lowDeaths = new ArrayList<>();
 	private final ArrayList<User> highDeathRate = new ArrayList<>();
 	private final ArrayList<User> lowDeathRate = new ArrayList<>();
 
-	//Top 10 lists
+	int totalDeaths = 0;
+	int totalActPlayers = 0;
 	int TOP_LIMIT = 10;
 	int INFINITY_I = Integer.MAX_VALUE;
 	double INFINITY_D = Double.MAX_VALUE;
@@ -72,6 +74,7 @@ public class DeathData {
 			resetTime = getResetTimeYML(uuid);
 			playTime = totalTime-resetTime;
 			deaths = getDeathsYML(uuid);
+			totalDeaths += deaths;
 
 			// PlayerData is empty, add every player to the hashMap
 			User user = new User(uuid, resetTime, deaths, playTime);
@@ -82,6 +85,7 @@ public class DeathData {
 				} else {
 					mortals.add(user);
 				}
+				totalActPlayers++;
 			}
 		}
 		//Try to save the changes
@@ -397,6 +401,11 @@ public class DeathData {
 	public void updateTime(String uuid, int totalPlaytime, boolean forceUpdate) {
 		User user = playerMap.get(uuid);
 		int resetTime = user.resetTime;
+		if(user.playTimeTicks == 0)
+		{
+			totalActPlayers++;
+			immortals.add(user);
+		}
 		user.playTimeTicks = totalPlaytime-resetTime;
 		// player is online
 		if(forceUpdate || Bukkit.getPlayer(user.uuid) != null) {
@@ -413,6 +422,7 @@ public class DeathData {
 		int resetTime = user.resetTime;
 		user.playTimeTicks = playTime-resetTime;
 		user.deaths++;
+		totalDeaths++;
 		updateArraysDeath(user);
 	}
 
@@ -482,6 +492,41 @@ public class DeathData {
 		User user = new User(uuid, 0, 0, 0);
 		playerMap.put(uuid.toString(), user);
 		immortals.add(user);
+		totalActPlayers++;
+	}
+
+	public int getTotalDeaths() {
+		return totalDeaths;
+	}
+
+	public int getTotalActPlayer() {
+		return totalActPlayers;
+	}
+
+	public long getTotalPlaytime() {
+		OfflinePlayer pl;
+		long totalPlaytime = 0;
+		int playtime;
+
+		for(User user: immortals) {
+			pl = Bukkit.getOfflinePlayer(user.uuid);
+			if(pl.isOnline()) {
+				playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-user.resetTime;
+			} else {
+				playtime = user.playTimeTicks;
+			}
+			totalPlaytime += playtime;
+		}
+		for(User user: mortals) {
+			pl = Bukkit.getOfflinePlayer(user.uuid);
+			if(pl.isOnline()) {
+				playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-user.resetTime;
+			} else {
+				playtime = user.playTimeTicks;
+			}
+			totalPlaytime += playtime;
+		}
+		return totalPlaytime;
 	}
 
 	static final class User {
