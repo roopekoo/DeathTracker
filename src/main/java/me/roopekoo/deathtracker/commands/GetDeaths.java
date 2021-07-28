@@ -96,47 +96,51 @@ public class GetDeaths implements CommandExecutor {
 					int totalPlayTime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE);
 					deathData.updateTime(pl.getUniqueId().toString(), totalPlayTime, false);
 
-				double deathValue = deathData.getDeaths(pl.getUniqueId());
-				String deathText = Lang.DEATHS.toString();
-				if(deathValue == 1) {
-					deathText = Lang.DEATH.toString();
-				}
-				String deathSTR = String.format("%.0f", deathValue);
-				double playtime = totalPlayTime-deathData.getResetTime(pl.getUniqueId());
-
-				if(args.length == 1) {
-					// getdeaths [player]
-					String playTimeSTR = converter.playTicksToShortStr(playtime);
-					String s = combineDeathsSTR(name, deathSTR, deathText, playTimeSTR);
-					sender.sendMessage(s);
-				} else if(args.length == 2) {
-					// getdeaths [player] time
-					if(args[1].equals("time")) {
-						double deathTime = 0;
-						double timeDeath = 0;
-						if(playtime != 0) {
-							deathTime = deathValue/playtime;
-						}
-						if(deathValue != 0) {
-							timeDeath = playtime/deathValue;
-						}
-						String deathPerTime = converter.deathPerTime(deathTime);
-						String timePerDeath = converter.playTicksToShortStr(timeDeath);
-						String s = combineTimeSTR(name, deathPerTime, timePerDeath);
-						sender.sendMessage(s);
+					double deathValue = deathData.getDeaths(pl.getUniqueId());
+					String deathText = Lang.DEATHS.toString();
+					if(deathValue == 1) {
+						deathText = Lang.DEATH.toString();
 					}
-					// getdeaths [player] deaths
-					else if(args[1].equals("deaths")) {
+					String deathSTR = String.format("%.0f", deathValue);
+					double playtime = totalPlayTime-deathData.getResetTime(pl.getUniqueId());
+
+					if(args.length == 1) {
+						// getdeaths [player]
 						String playTimeSTR = converter.playTicksToShortStr(playtime);
-						String s = combineDeathsSTR(name, deathSTR, deathText, playTimeSTR);
+						String msg = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+						String s = combineDeathsSTR(msg, name, deathSTR, deathText, playTimeSTR);
 						sender.sendMessage(s);
+					} else if(args.length == 2) {
+						// getdeaths [player] time
+						if(args[1].equals("time")) {
+							double deathTime = 0;
+							double timeDeath = 0;
+							if(playtime != 0) {
+								deathTime = deathValue/playtime;
+							}
+							if(deathValue != 0) {
+								timeDeath = playtime/deathValue;
+							}
+							String deathPerTime = converter.deathPerTime(deathTime);
+							String timePerDeath = converter.playTicksToShortStr(timeDeath);
+							String msg = Lang.TITLE.toString()+Lang.PLAYER_DEATHTIME;
+							String s = combineTimeSTR(msg, name, deathPerTime, timePerDeath);
+							sender.sendMessage(s);
+						}
+						// getdeaths [player] deaths
+						else if(args[1].equals("deaths")) {
+							String playTimeSTR = converter.playTicksToShortStr(playtime);
+							String msg = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+							String s = combineDeathsSTR(msg, name, deathSTR, deathText, playTimeSTR);
+							sender.sendMessage(s);
+						} else {
+							sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
+							return false;
+						}
 					} else {
-						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PARAM);
+						sender.sendMessage(Lang.TITLE.toString()+Lang.TOO_MANY_PARAMS);
 						return false;
 					}
-				} else {
-					sender.sendMessage(Lang.TITLE.toString()+Lang.TOO_MANY_PARAMS);
-					return false;
 				}
 			} else {
 				if(sender instanceof Player) {
@@ -168,8 +172,8 @@ public class GetDeaths implements CommandExecutor {
 		return true;
 	}
 
-	private String combineDeathsSTR(String name, String deathSTR, String deathText, String playTimeSTR) {
-		String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+	private String combineDeathsSTR(String msg, String name, String deathSTR, String deathText, String playTimeSTR) {
+		String s = msg;
 		s = s.replace("{pl}", name);
 		s = s.replace("{n}", deathSTR);
 		s = s.replace("{death(s)}", deathText);
@@ -177,8 +181,8 @@ public class GetDeaths implements CommandExecutor {
 		return s;
 	}
 
-	private String combineTimeSTR(String name, String deathPerTime, String timePerDeath) {
-		String s = Lang.TITLE.toString()+Lang.PLAYER_DEATHTIME;
+	private String combineTimeSTR(String msg, String name, String deathPerTime, String timePerDeath) {
+		String s = msg;
 		s = s.replace("{pl}", name);
 		s = s.replace("{dr}", deathPerTime);
 		s = s.replace("{t}", timePerDeath);
