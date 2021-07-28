@@ -139,8 +139,28 @@ public class GetDeaths implements CommandExecutor {
 					return false;
 				}
 			} else {
-				sender.sendMessage(Lang.TITLE.toString()+Lang.NOT_ENOUGH_PARAMS);
-				return false;
+				if(sender instanceof Player) {
+					Player pl = (Player) sender;
+					DeathData deathData = DeathTracker.getPlugin().get_file();
+					UUID uuid = pl.getUniqueId();
+					int deaths = deathData.getDeaths(uuid);
+					String name = sender.getName();
+					String deathSTR = String.valueOf(deaths);
+					String deathText = Lang.DEATHS.toString();
+					if(deaths == 1) {
+						deathText = Lang.DEATH.toString();
+					}
+					int playtime = pl.getStatistic(Statistic.PLAY_ONE_MINUTE)-deathData.getResetTime(uuid);
+					String playTimeSTR = converter.playTicksToShortStr(playtime);
+
+					String msg = Lang.TITLE.toString()+Lang.PLAYER_DEATHS;
+					String s = combineDeathsSTR(msg, name, deathSTR, deathText, playTimeSTR);
+					sender.sendMessage(s);
+
+				} else {
+					sender.sendMessage(Lang.TITLE.toString()+Lang.NOT_ENOUGH_PARAMS);
+					return false;
+				}
 			}
 		} else {
 			sender.sendMessage(Lang.TITLE.toString()+Lang.NO_PERM);
