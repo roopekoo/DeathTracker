@@ -3,10 +3,18 @@ This Minecraft plugin tracks players' deaths and playtime. DeathTracker calculat
 Deathtracker works at least for Minecraft 1.17.1 (should work for earlier versions too, not tested) and with Spigotmc or Papermc.
 
 ## Features
-- `/getdeaths [player]` OR `/getdeaths [player] deaths`
-  - Gives the amount of deaths the player has died
+- `/getdeaths`
+  - gives the issuer its own deathdata(playtime and deaths
   - The command supports automatic tab completion
   - Permission: `deathtracker.getdeaths`
+  - `/getdeaths [player]` OR `/getdeaths [player] deaths` 
+    - Gives the amount of deaths the player has died
+  - `/getdeaths [player] time`
+    - Gives the deathrate and the approximate time to die
+  - `/getdeaths total deaths`
+    - Gives the amount of playtime and deaths the server has
+  - `/getdeaths total time`
+    - Gives the deathrate and the approximate time to die for the whole server
 - `/deathstats`
   - Show the top 10 players on the specific type of death data
   - permission: `deathtracker.deathstats`
