@@ -188,4 +188,11 @@ public class GetDeaths implements CommandExecutor {
 		s = s.replace("{t}", timePerDeath);
 		return s;
 	}
+
+	private String combineTotalTitle(String msg, String amount, String playerSTR) {
+		String s = msg;
+		s = s.replace("{n}", amount);
+		s = s.replace("{player(s)}", playerSTR);
+		return s;
+	}
 }
