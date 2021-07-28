@@ -401,8 +401,7 @@ public class DeathData {
 	public void updateTime(String uuid, int totalPlaytime, boolean forceUpdate) {
 		User user = playerMap.get(uuid);
 		int resetTime = user.resetTime;
-		if(user.playTimeTicks == 0)
-		{
+		if(user.playTimeTicks == 0) {
 			totalActPlayers++;
 			immortals.add(user);
 		}
