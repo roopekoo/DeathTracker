@@ -14,8 +14,13 @@ deathrate-stats: '{i}: &e{pl}&7, deathrate of &a{dr}'
 low-deathrate-title: '&6&nTop {n} low-deathrate {player(s)}:&r'
 high-deathrate-title: '&6&nTop {n} high-deathrate {player(s)}:&r'
 death-stats: '{i}: &e{pl}, &4{n} &7{death(s)}, playtime of &a{pt}'
-low-deaths: '&6&nTop {n} {player(s)} with low mortality:&r'
-high-deaths: '&6&nTop {n} {player(s)} with high mortality:&r'
+low-deaths-title: '&6&nTop {n} {player(s)} with low mortality:&r'
+high-deaths-title: '&6&nTop {n} {player(s)} with high mortality:&r'
+total-deathrate-title: '&6&nTotal deathrate of {n} {player(s)}:&r'
+total-deaths-title: '&6&nTotal deaths of {n} {player(s)}:&r'
+total-deathrate-stats: '&7Total deathrate of &4{dr} &7and a death happens once per
+  &a{t}'
+total-deaths-stats: '&7Total of &4{n} &7{death(s)} with a playtime of &a{pt}'
 player: player
 players: players
 death: death
