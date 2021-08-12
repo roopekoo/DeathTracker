@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ForkJoinPool;
+import java.util.logging.Level;
 
 public class DeathData {
 	private static final String BASEDIR = "plugins/DeathTracker";
@@ -90,7 +91,7 @@ public class DeathData {
 		}
 		//Try to save the changes
 		writeFile();
-		System.out.println("Offline players death/playtime updated");
+		Bukkit.getLogger().log(Level.INFO, Lang.TITLE+"Offline players death/playtime updated");
 		sortImmortals();
 		sortMortals();
 	}

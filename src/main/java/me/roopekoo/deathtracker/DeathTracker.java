@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class DeathTracker extends JavaPlugin {
 	public static YamlConfiguration LANG;
@@ -50,8 +51,8 @@ public class DeathTracker extends JavaPlugin {
 			} catch(IOException e) {
 				// Send notice
 				e.printStackTrace();
-				System.out.println(Lang.TITLE+"Couldn't create language file.");
-				System.out.println(Lang.TITLE+"This is a fatal error. Now disabling");
+				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+"Couldn't create language file.");
+				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+"This is a fatal error. Now disabling");
 				// Without it loaded, we can't send them messages
 				this.setEnabled(false);
 			}
@@ -68,8 +69,8 @@ public class DeathTracker extends JavaPlugin {
 		try {
 			conf.save(getLangFile());
 		} catch(IOException e) {
-			System.out.println(Lang.TITLE+"Failed to save lang.yml.");
-			System.out.println(Lang.TITLE+"Report this stack trace to Roopekoo.");
+			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+"Failed to save lang.yml.");
+			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+"Report this stack trace to Roopekoo.");
 			e.printStackTrace();
 		}
 	}
