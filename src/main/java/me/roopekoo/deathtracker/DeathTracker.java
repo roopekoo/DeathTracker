@@ -31,8 +31,8 @@ public class DeathTracker extends JavaPlugin {
 		Objects.requireNonNull(plugin.getCommand("deathstats")).setExecutor(new DeathStats());
 		Objects.requireNonNull(plugin.getCommand("deathstats")).setTabCompleter(new TabCompletion());
 		Bukkit.getPluginManager().registerEvents(new DeathHandler(), plugin);
-		DeathTracker.getPlugin().get_file().initializePlayerData();
 		loadLang();
+		DeathTracker.getPlugin().get_file().initializePlayerData();
 	}
 
 	public DeathData get_file() {
