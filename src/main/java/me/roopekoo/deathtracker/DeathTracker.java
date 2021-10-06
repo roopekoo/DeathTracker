@@ -7,6 +7,7 @@ import me.roopekoo.deathtracker.events.DeathHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,11 @@ public class DeathTracker extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new DeathHandler(), plugin);
 		loadLang();
 		DeathTracker.getPlugin().get_file().initializePlayerData();
+
+		BukkitScheduler scheduler = getServer().getScheduler();
+		// Write data from memory to file every (10) minutes
+		scheduler.scheduleSyncRepeatingTask(this, ()->DeathTracker.getPlugin().get_file().writeAllToDeathData(), 0L,
+		                                    20L*60L*10L);
 	}
 
 	public DeathData get_file() {
