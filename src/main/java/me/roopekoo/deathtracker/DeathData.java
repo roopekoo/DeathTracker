@@ -423,6 +423,9 @@ public class DeathData {
 		user.deaths++;
 		totalDeaths++;
 		updateArraysDeath(user);
+		//Update deathData.yml with a new death
+		deathData.set("players."+uuid+".deaths", user.deaths);
+		writeFile();
 	}
 
 	private void updateArraysDeath(User user) {
@@ -493,6 +496,10 @@ public class DeathData {
 		playerMap.put(uuid.toString(), user);
 		immortals.add(user);
 		totalActPlayers++;
+		deathData.set("players."+uuid+".resetTime", resetTime);
+		//Deaths = 0
+		deathData.set("players."+uuid+".deaths", 0);
+		writeFile();
 	}
 
 	public int getTotalDeaths() {
