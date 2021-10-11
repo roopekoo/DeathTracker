@@ -233,7 +233,6 @@ public class DeathData {
 		return playerMap.get(player.toString()).resetTime;
 	}
 
-
 	private void modifyTopList(ArrayList<User> topList, User user) {
 		User targetUser = hasUser(topList, user.uuid.toString());
 		// targetUser found->update deaths and playtime
@@ -489,7 +488,8 @@ public class DeathData {
 
 	public void addNewPlayer(Player player) {
 		UUID uuid = player.getUniqueId();
-		User user = new User(uuid, 0, 0, 0);
+		int resetTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
+		User user = new User(uuid, resetTime, 0, 0);
 		playerMap.put(uuid.toString(), user);
 		immortals.add(user);
 		totalActPlayers++;
