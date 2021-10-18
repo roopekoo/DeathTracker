@@ -16,6 +16,7 @@ import java.util.UUID;
 
 public class GetDeaths implements CommandExecutor {
 	private final DeathTimeConverter converter = new DeathTimeConverter();
+	DeathData deathData = DeathTracker.getPlugin().get_file();
 
 	@Override public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(sender.hasPermission("deathtracker.getdeaths")) {
@@ -86,7 +87,8 @@ public class GetDeaths implements CommandExecutor {
 				} else {
 					String name = args[0];
 					OfflinePlayer pl = Bukkit.getOfflinePlayer(name);
-					if(!pl.hasPlayedBefore()) {
+					String uuid = pl.getUniqueId().toString();
+					if(deathData.hasPlayer(uuid)) {
 						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PLAYER);
 						return true;
 					}

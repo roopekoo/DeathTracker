@@ -536,6 +536,10 @@ public class DeathData {
 		return totalPlaytime;
 	}
 
+	public boolean hasPlayer(String uuid) {
+		return playerMap.containsKey(uuid);
+	}
+
 	static final class User {
 		private final int resetTime;
 		private final UUID uuid;
