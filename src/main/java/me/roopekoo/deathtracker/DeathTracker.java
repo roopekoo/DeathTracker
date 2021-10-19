@@ -51,8 +51,8 @@ public class DeathTracker extends JavaPlugin {
 			} catch(IOException e) {
 				// Send notice
 				e.printStackTrace();
-				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+"Couldn't create language file.");
-				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+"This is a fatal error. Now disabling");
+				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+Lang.FILE_CREATE_FAIL1.toString());
+				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+Lang.FILE_CREATE_FAIL2.toString());
 				// Without it loaded, we can't send them messages
 				this.setEnabled(false);
 			}
@@ -69,8 +69,8 @@ public class DeathTracker extends JavaPlugin {
 		try {
 			conf.save(getLangFile());
 		} catch(IOException e) {
-			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+"Failed to save lang.yml.");
-			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+"Report this stack trace to Roopekoo.");
+			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+Lang.SAVE_FAIL1.toString());
+			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+Lang.SAVE_FAIL2.toString());
 			e.printStackTrace();
 		}
 	}
