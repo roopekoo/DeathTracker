@@ -4,6 +4,10 @@ invalid-player: '&cThat player has never played here!'
 invalid-param: '&cInvalid parameter!'
 too-many-params: '&cToo many parameters!'
 not-enough-params: '&cNot enough parameters!'
+file-create-fail1: "Couldn't create message file."
+file-create-fail2: "This is a fatal error. Now disabling"
+save-fail1: "Failed to save lang.yml."
+save-fail2: "Report this stack trace to Roopekoo!"
 empty-top-list: '&cThis top 10 list is empty!'
 player-deaths: '&e{pl} &7has &4{n} &7{death(s)} with a playtime of &a{pt}'
 player-deathtime: '&e{pl} &7has a death rate of &4{dr} &7and dies approximately once
