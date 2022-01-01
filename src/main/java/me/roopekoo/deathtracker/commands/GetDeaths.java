@@ -86,12 +86,12 @@ public class GetDeaths implements CommandExecutor {
 					}
 				} else {
 					String name = args[0];
-					OfflinePlayer pl = Bukkit.getOfflinePlayer(name);
-					String uuid = pl.getUniqueId().toString();
-					if(deathData.hasPlayer(uuid)) {
+					UUID uuid = deathData.nameToUuid(name);
+					if(uuid == null) {
 						sender.sendMessage(Lang.TITLE.toString()+Lang.INVALID_PLAYER);
 						return true;
 					}
+					OfflinePlayer pl = Bukkit.getOfflinePlayer(uuid);
 					name = pl.getName();
 					assert name != null;
 					DeathData deathData = DeathTracker.getPlugin().get_file();
