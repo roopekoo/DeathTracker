@@ -21,6 +21,7 @@ public class DeathData {
 	private final DeathTimeConverter converter = new DeathTimeConverter();
 	private final File ff = new File(BASEDIR+DEATHDATAPATH);
 	private final HashMap<String, User> playerMap = new HashMap<>();
+	private final HashMap<String, UUID> name2uuid = new HashMap<>();
 
 	private final ArrayList<User> mortals = new ArrayList<>();
 	private final ArrayList<User> immortals = new ArrayList<>();
@@ -64,6 +65,7 @@ public class DeathData {
 		// Go through all offline players
 		for(OfflinePlayer offlinePlayer: offlinePlayers) {
 			uuid = offlinePlayer.getUniqueId();
+			String name = offlinePlayer.getName();
 			totalTime = offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE);
 			// Player is not yet on the deathData file
 			if(noPlayerInYML(uuid)) {
@@ -80,6 +82,8 @@ public class DeathData {
 			// PlayerData is empty, add every player to the hashMap
 			User user = new User(uuid, resetTime, deaths, playTime);
 			playerMap.put(uuid.toString(), user);
+			assert name != null;
+			name2uuid.put(name.toLowerCase(), uuid);
 			if(playTime != 0) {
 				if(deaths == 0) {
 					immortals.add(user);
@@ -494,6 +498,7 @@ public class DeathData {
 		int resetTime = player.getStatistic(Statistic.PLAY_ONE_MINUTE);
 		User user = new User(uuid, resetTime, 0, 0);
 		playerMap.put(uuid.toString(), user);
+		name2uuid.put(player.getName().toLowerCase(), uuid);
 		immortals.add(user);
 		totalActPlayers++;
 		deathData.set("players."+uuid+".resetTime", resetTime);
@@ -538,6 +543,11 @@ public class DeathData {
 
 	public boolean hasPlayer(String uuid) {
 		return playerMap.containsKey(uuid);
+	}
+
+
+	public UUID nameToUuid(String name) {
+		return name2uuid.get(name.toLowerCase());
 	}
 
 	static final class User {
