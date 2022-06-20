@@ -14,6 +14,9 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+/**
+ Handles /getdeaths command
+ */
 public class GetDeaths implements CommandExecutor {
 	private final DeathTimeConverter converter = new DeathTimeConverter();
 	DeathData deathData = DeathTracker.getPlugin().get_file();

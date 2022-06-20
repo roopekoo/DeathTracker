@@ -1,6 +1,14 @@
 package me.roopekoo.deathtracker;
 
+/**
+ Convert ticks to suitable time units
+ */
 public class DeathTimeConverter {
+	/**
+	 Convert deathTime to string with suitable time units
+	 @param deathTime deaths per time
+	 @return time converted to suitable time/death string
+	 */
 	public String deathPerTime(double deathTime) {
 		String time;
 		String deathText = "death";
@@ -68,11 +76,22 @@ public class DeathTimeConverter {
 		return time+" "+unit;
 	}
 
+	/**
+	 Store values for time units
+	 */
 	private enum TicksToUnit {
-		SECOND(20), MINUTE(20*60), HOUR(20*60*60), DAY(20*60*60*24), YEAR(20*60*60*24*365.25);
+		SECOND(20),
+		MINUTE(20*60),
+		HOUR(20*60*60),
+		DAY(20*60*60*24),
+		YEAR(20*60*60*24*365.25);
 
 		public final double value;
 
+		/**
+		 Construct value
+		 @param value double
+		 */
 		TicksToUnit(double value) {
 			this.value = value;
 		}

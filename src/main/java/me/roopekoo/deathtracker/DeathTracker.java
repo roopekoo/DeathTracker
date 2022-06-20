@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
 
+/**
+ Main plugin class */
 public class DeathTracker extends JavaPlugin {
 	public static YamlConfiguration LANG;
 	public static File LANG_FILE;
@@ -20,10 +22,17 @@ public class DeathTracker extends JavaPlugin {
 	private static DeathTracker plugin = null;
 	private final DeathData dataFile = new DeathData();
 
+	/**
+	 Get DeathTracker instance
+	 @return this class
+	 */
 	public static DeathTracker getPlugin() {
 		return plugin;
 	}
 
+	/**
+	 Initialize plugin on startup
+	 */
 	@Override public void onEnable() {
 		plugin = this;
 		Objects.requireNonNull(plugin.getCommand("getdeaths")).setExecutor(new GetDeaths());
@@ -35,6 +44,10 @@ public class DeathTracker extends JavaPlugin {
 		DeathTracker.getPlugin().get_file().initializePlayerData();
 	}
 
+	/**
+	 Get DeathData instance
+	 @return DeathData class
+	 */
 	public DeathData get_file() {
 		return dataFile;
 	}
@@ -53,8 +66,8 @@ public class DeathTracker extends JavaPlugin {
 				e.printStackTrace();
 				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+Lang.FILE_CREATE_FAIL1.toString());
 				Bukkit.getLogger().log(Level.SEVERE, Lang.TITLE+Lang.FILE_CREATE_FAIL2.toString());
-				// Without it loaded, we can't send them messages
-				this.setEnabled(false);
+				// Without Messages loaded, we can't send the messages
+				plugin.setEnabled(false);
 			}
 		}
 		YamlConfiguration conf = YamlConfiguration.loadConfiguration(lang);
@@ -69,6 +82,7 @@ public class DeathTracker extends JavaPlugin {
 		try {
 			conf.save(getLangFile());
 		} catch(IOException e) {
+			//Saving failed for some reason
 			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+Lang.SAVE_FAIL1.toString());
 			Bukkit.getLogger().log(Level.WARNING, Lang.TITLE+Lang.SAVE_FAIL2.toString());
 			e.printStackTrace();
@@ -83,6 +97,9 @@ public class DeathTracker extends JavaPlugin {
 		return LANG_FILE;
 	}
 
+	/**
+	 Save data from memory to file on shutdown
+	 */
 	@Override public void onDisable() {
 		DeathTracker.getPlugin().get_file().writeAllToDeathData();
 	}

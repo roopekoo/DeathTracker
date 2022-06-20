@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
  @author roopekoo */
 public enum Lang {
 	TITLE("title-name", "&4[&8Death&7Tracker&4]: "),
+	DATA_LOAD("data-load","&2Players' deaths and playtime loaded successfully"),
 	NO_PERM("no-perm", "&cYou not have permission to do that!"),
 	INVALID_PLAYER("invalid-player", "&cThat player has never played here!"),
 	INVALID_PARAM("invalid-param", "&cInvalid parameter!"),
@@ -81,6 +82,10 @@ public enum Lang {
 		return this.path;
 	}
 
+	/**
+	 Convert string with color or formatting codes(e.g. &6, &l) to formatted text
+	 @return Return string with colors and formatting
+	 */
 	@Override public String toString() {
 		String s = LANG.getString(this.path, def);
 		return ChatColor.translateAlternateColorCodes('&', s);

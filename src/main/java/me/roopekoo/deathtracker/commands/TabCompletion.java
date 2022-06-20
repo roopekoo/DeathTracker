@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Tab completition for the commands
+ */
 public class TabCompletion implements TabCompleter {
 	@Override public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
 		if(command.getName().equalsIgnoreCase("getdeaths")) {

@@ -6,7 +6,7 @@
 
     <groupId>me.roopekoo</groupId>
     <artifactId>DeathTracker</artifactId>
-    <version>2.9</version>
+    <version>3.0</version>
     <packaging>jar</packaging>
 
     <name>DeathTracker</name>
