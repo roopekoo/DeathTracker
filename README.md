@@ -2,9 +2,11 @@
 This Minecraft plugin tracks players' deaths and playtime. DeathTracker calculates death time (death density) and gives the top 10 statistics of these values.
 Deathtracker works at least for Minecraft 1.17.1 (should work for earlier versions too, not tested) and with Spigotmc or Papermc.
 
+Handle multiple top lists and sort them correctly.
+
 ## Features
 - `/getdeaths`
-  - gives the issuer its own deathdata(playtime and deaths
+  - gives the issuer its own deathdata(playtime and deaths)
   - The command supports automatic tab completion
   - Permission: `deathtracker.getdeaths`
   - `/getdeaths [player]` OR `/getdeaths [player] deaths` 
@@ -29,7 +31,8 @@ Deathtracker works at least for Minecraft 1.17.1 (should work for earlier versio
   - `/deathstats deathrate high` 
     - Top 10 players who die least often (Player with the biggest playtime/deaths value goes first. Players who have zero deaths are not in this list)
 
-## Planned features
+## Possible features
+- Allow to see more pages than only top 10. Similar to TimeTracker.
 - Language file reload
 - Automatic language detector→localize the plugin to your own needs
 - Command for resetting all or specific players' deathdata
